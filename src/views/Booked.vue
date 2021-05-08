@@ -6,13 +6,13 @@
 </template>
 
 <style scoped>
-.booked{
+.booked {
   width: 50%;
   margin: 0 auto;
   text-align: center;
   margin-top: 120px;
 }
-h3{
+h3 {
   font-size: 25px;
   margin-bottom: 15px;
 }
