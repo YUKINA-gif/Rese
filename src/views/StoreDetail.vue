@@ -1,5 +1,6 @@
 <template>
   <div class="detail">
+    <!-- 店舗詳細 -->
     <div class="flex">
       <div class="storedetail">
         <h2 class="store-name">{{ store.name }}</h2>
@@ -11,12 +12,13 @@
           <p class="genre" v-if="store">#{{ store.genre.genre }}</p>
         </div>
       </div>
-
+    <!-- 予約 -->
       <div class="booking">
         <h2 class="booking-title">ご予約</h2>
         <form>
           <ul>
             <li class="flex">
+              <!-- 来店日 -->
               <p class="booking-date">来店日:</p>
               <datetime
                 label="日付を選択してください"
@@ -33,6 +35,7 @@
               ></datetime>
             </li>
           </ul>
+          <!-- 来店時間 -->
           <ul>
             <li class="time-color flex">
               <p class="booking-time">来店時間:</p>
@@ -66,6 +69,7 @@
               ></vue-timepicker>
             </li>
           </ul>
+          <!-- 来店人数 -->
           <ul>
             <li class="flex">
               <p class="booking-number">人数:</p>
@@ -82,6 +86,7 @@
         </button>
       </div>
     </div>
+    <!-- 予約最終確認（モーダルウィンドウ） -->
     <Modal v-if="modal" @close="closeModal" :val="checkItem"></Modal>
     <p class="overview">{{ store.overview }}</p>
     <button class="button back-button" @click="$router.push('/')">戻る</button>
@@ -94,7 +99,7 @@ import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import axios from "axios";
-import Modal from '../components/BookingCheck';
+import Modal from "../components/BookingCheck";
 export default {
   components: {
     datetime,
@@ -112,6 +117,7 @@ export default {
     };
   },
   methods: {
+    // 店舗情報取得
     getStoreDetail() {
       axios
         .get("http://127.0.0.1:8000/api/store/" + this.id)
@@ -119,23 +125,29 @@ export default {
           this.store = response.data.store;
         });
     },
+    // モーダルウィンドウを開いたときに送る情報
     openModal() {
-      this.modal = true;
-      this.checkItem = {
-        store_name:this.store.name,
-        store_id:this.store.id,
-        booking_date:this.date,
-        booking_time:this.time,
-        booking_number:this.number,
+      if (this.$store.state.auth == true) {
+        this.modal = true;
+        this.checkItem = {
+          store_name: this.store.name,
+          store_id: this.store.id,
+          booking_date: this.date,
+          booking_time: this.time,
+          booking_number: this.number,
+        };
+      } else {
+        this.$router.replace("/login");
       }
     },
+    // モーダルウィンドウを閉じたときにページを再リロード
     closeModal() {
       this.modal = false;
       this.$router.go({
-            path: this.$router.currentRoute.path,
-            force: true,
-          });
-    }
+        path: this.$router.currentRoute.path,
+        force: true,
+      });
+    },
   },
   created() {
     this.getStoreDetail();

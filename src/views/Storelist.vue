@@ -3,11 +3,12 @@
     <!-- メイン画像 -->
     <img src="../assets/italian.jpg" alt="mainimage" class="image mainimage" />
     <div class="search">
-      <!-- 店舗検索 -->
+
+    <!-- 店舗検索 -->
       <h2>店舗検索</h2>
       <div class="flex">
         <select name="エリア" v-model="seachArea">
-          <option value="0" hidden class="pull-down">エリア </option>
+          <option value="" hidden class="pull-down">エリア </option>
           <option
             v-for="(area, index) in areas"
             :key="index"
@@ -17,7 +18,7 @@
         </select>
 
         <select name="ジャンル" v-model="seachGenre">
-          <option value="0" hidden class="pull-down">ジャンル</option>
+          <option value="" hidden class="pull-down">ジャンル</option>
           <option
             v-for="(genre, index) in genres"
             :key="index"
@@ -29,6 +30,7 @@
         <button type="submit" class="button seach_button">検索</button>
       </div>
     </div>
+
     <!-- 店舗一覧 -->
     <div class="stores-container">
       <h2 id="store-title">店舗一覧</h2>
@@ -36,9 +38,12 @@
         <div class="store-card" v-for="(store, index) in getItems" :key="index">
           <img :src="store.image" alt="" class="store-image image" />
           <div>
-            <span class="store-name">{{ store.name }}</span>
-            <img :src="heart" alt="" class="png" @click="favorite(i)" />
-
+            <div class="flex store-heart">
+              <span class="store-name">{{ store.name }}</span>
+              <div @click="favorite(store)">
+                <img :src="heart" alt="" class="png"/>
+              </div>
+            </div>
             <div class="flex">
               <p>#{{ store.area.area }}</p>
               <p>#{{ store.genre.genre }}</p>
@@ -49,15 +54,14 @@
                 $router.push({
                   path: '/detail/' + store.id,
                   params: { id: store.id },
-                })
-              "
-            >
+                })">
               店舗詳細・予約
             </button>
           </div>
         </div>
       </div>
     </div>
+    <!-- ページネーション -->
     <paginate
       class="flex pagination"
       :page-count="getPage"
@@ -66,6 +70,7 @@
       :click-handler="paginateClickCallback"
       :container-class="'page-ui'"
     ></paginate>
+    <!-- フッター -->
     <Footer />
   </div>
 </template>
@@ -84,13 +89,14 @@ export default {
       stores: [],
       areas: [],
       genres: [],
-      heart: "",
       currentPage: 1,
       parPage: 12,
       seachArea: "",
       seachGenre: "",
+      heart: "",
     };
   },
+  // ページネーション設定
   computed: {
     getItems: function() {
       let start = (this.currentPage - 1) * this.parPage;
@@ -105,48 +111,48 @@ export default {
     paginateClickCallback: function(pageNum) {
       this.currentPage = Number(pageNum);
     },
+    // 店舗一覧 + ユーザーお気に入り情報取得してハートに反映
     getStores() {
       axios
         .get("http://127.0.0.1:8000/api/stores/" + this.$store.state.user.id)
         .then((response) => {
-          // ユーザーお気に入りデータを配列に入れてstore_idだけ取り出す
-          var favorite = response.data.item.favorite;
-          for (var key in favorite) {
-            var store_id = [];
-            store_id.push(favorite[key].store_id);
-          }
-          // 店舗データを配列に入れてidを取り出す
-          var stores = response.data.item.store;
-          for (var i in stores) {
-            var id = [];
-            id.push(stores[i].id);
-          }
+          var items = [];
+          items = response.data.item.store;
 
-          // 取り出したidとstore_idが同じ店舗に赤ハートをつける。
-          if (id.includes(i) && store_id.includes(key)) {
-            this.heart = require("../assets/heart.png");
-            this.stores = response.data.item.store;
-            this.areas = response.data.item.area;
-            this.genres = response.data.item.genre;
-          } else if (id.includes(i) && !store_id.includes(key)) {
-            this.heart = require("../assets/no-heart.png");
-          } else {
-            this.heart = require("../assets/no-heart.png");
-            this.stores = response.data.item.store;
-            this.areas = response.data.item.area;
-            this.genres = response.data.item.genre;
+          for (let key in items) {
+            if (items[key].favorites == 0) {
+              console.log("no");
+              this.stores = items;
+              this.heart = require("../assets/no-heart.png");
+            } else {
+              console.log("ok");
+              this.stores = items;
+              this.heart = require("../assets/heart.png");
+            }
           }
+          this.areas = response.data.item.area;
+          this.genres = response.data.item.genre;
         });
     },
-    seach() {
-      let array = [];
-      for (let i in this.stores) {
-        let area = this.stores[i];
-        if (area.id.indexOf(this.seachArea)) {
-          array.push(area);
-        }
+    // お気に入り店舗登録もしくは削除
+    favorite(store) {
+      // ログインしていなければログイン画面へ誘導
+      if (this.$store.state.auth == true) {
+        axios
+          .post("http://127.0.0.1:8000/api/favorite", {
+            user_id: this.$store.state.user.id,
+            store_id: store.id,
+          })
+          .then((response) => {
+            console.log(response);
+            this.$router.go({
+              path: this.$router.currentRoute.path,
+              force: true,
+            });
+          });
+      } else {
+        this.$router.replace("/login");
       }
-      return array;
     },
   },
   created() {
@@ -212,13 +218,15 @@ h2 {
   border: 1px solid #c2c2c2;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
 }
-.png {
-  position: absolute;
-  right: 10px;
-}
 .store-name {
   font-weight: bold;
   font-size: 20px;
+}
+.store-heart{
+  justify-content: space-between;
+}
+.png{
+  margin-right:10px;
 }
 .store-button {
   padding: 7px 15px;

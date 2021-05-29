@@ -40,6 +40,7 @@ export default {
     };
   },
   methods: {
+    // ログイン
     login() {
       this.$store.dispatch("login", {
         email: this.email,

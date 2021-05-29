@@ -3,7 +3,15 @@
     <p class="username">{{ name }}様</p>
     <!-- 予約状況一覧 -->
     <span class="title">予約状況</span>
-    <div v-for="(booking, index) in bookings" :key="index" class="booking flex">
+    <!-- 予約店舗0の場合表示 -->
+    <p v-if="haveBooking">予約店舗はありません</p>
+    <!-- 予約店舗がある場合表示 -->
+    <div
+      v-for="(booking, index) in bookings"
+      :key="index"
+      class="booking flex"
+      v-else
+    >
       <img :src="booking.store.image" class="image store_image" />
       <table class="mybooking">
         <tr>
@@ -32,17 +40,28 @@
         >
           予約内容の変更
         </button>
-        <button class="button" id="booking-delete-button" @click="openModalDel(booking)">予約取消</button>
+        <button
+          class="button"
+          id="booking-delete-button"
+          @click="openModalDel(booking)"
+        >
+          予約取消
+        </button>
       </div>
     </div>
     <!-- 予約更新画面 -->
     <Modal v-if="modal" @close="closeModal" :val="postItem"></Modal>
     <!-- 予約削除画面 -->
-    <ModalDel v-if="modal_del" @close="closeModalDel" :val="deleteItem"></ModalDel>
+    <ModalDel
+      v-if="modal_del"
+      @close="closeModalDel"
+      :val="deleteItem"
+    ></ModalDel>
     <!-- お気に入り店舗 -->
     <span class="title">お気に入り店舗</span>
     <p>全{{ favorites.length }}件</p>
-    <div class="flex wrap store-flex">
+    <p v-if="haveFavorite">お気に入り店舗はありません</p>
+    <div class="flex wrap store-flex" v-else>
       <div class="store-card" v-for="(store, index) in favorites" :key="index">
         <img :src="store.store.image" alt="" class="store-image image" />
 
@@ -59,9 +78,7 @@
             $router.push({
               path: '/detail/' + store.store_id,
               params: { id: store.id },
-            })
-          "
-        >
+            })">
           店舗詳細・予約
         </button>
       </div>
@@ -72,7 +89,7 @@
 <script>
 import axios from "axios";
 import Modal from "../components/BookingUpdate";
-import ModalDel from '../components/BookingDelete';
+import ModalDel from "../components/BookingDelete";
 export default {
   data() {
     return {
@@ -82,6 +99,8 @@ export default {
       modal: false,
       modal_del: false,
       postItem: "",
+      haveBooking: true,
+      haveFavorite: true,
     };
   },
   components: {
@@ -89,6 +108,7 @@ export default {
     ModalDel,
   },
   methods: {
+    // お気に入り店舗情報取得
     getMyFavorite() {
       axios
         .get(
@@ -98,8 +118,14 @@ export default {
         )
         .then((response) => {
           this.favorites = response.data.data;
+          if (this.favorites == 0) {
+            this.haveFavorite = true;
+          } else {
+            this.haveFavorite = false;
+          }
         });
     },
+    // 予約状況取得
     getMyBooking() {
       axios
         .get(
@@ -109,6 +135,11 @@ export default {
         )
         .then((response) => {
           this.bookings = response.data.data;
+          if (this.bookings == 0) {
+            this.haveBooking = true;
+          } else {
+            this.haveBooking = false;
+          }
         });
     },
     openModal(booking) {
@@ -118,15 +149,15 @@ export default {
     closeModal() {
       this.modal = false;
       this.$router.go({
-            path: this.$router.currentRoute.path,
-            force: true,
-          });
+        path: this.$router.currentRoute.path,
+        force: true,
+      });
     },
-    openModalDel(booking){
+    openModalDel(booking) {
       this.modal_del = true;
       this.deleteItem = booking;
     },
-    closeModalDel(){
+    closeModalDel() {
       this.modal_del = false;
     },
   },
@@ -164,7 +195,7 @@ export default {
   width: 50%;
   font-size: 18px;
 }
-.booking{
+.booking {
   margin-bottom: 20px;
 }
 .store_name {
@@ -194,16 +225,16 @@ h3 {
   font-weight: bold;
   margin-bottom: 10px;
 }
-#booking-delete-button{
+#booking-delete-button {
   background-color: rgb(204, 6, 6);
 }
-#booking-update-button{
-background-color: rgb(2, 223, 186);
+#booking-update-button {
+  background-color: rgb(2, 223, 186);
 }
 .store_image {
   width: 300px;
 }
-.booking-button{
+.booking-button {
   width: 25%;
 }
 /* ====================
