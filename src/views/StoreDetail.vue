@@ -2,13 +2,13 @@
   <div class="detail">
     <div class="flex">
       <div class="storedetail">
-        <h2 class="store-name">{{ name }}</h2>
+        <h2 class="store-name">{{ store.name }}</h2>
         <div class="detail-image-div">
-          <img :src="image" alt="storeimage" class="image detail-image" />
+          <img :src="store.image" alt="storeimage" class="image detail-image" />
         </div>
-        <div class="flex">
-          <p class="area">#{{ area }}</p>
-          <p class="genre">#{{ genre }}</p>
+        <div class="flex tag">
+          <p class="area" v-if="store">#{{ store.area.area }}</p>
+          <p class="genre" v-if="store">#{{ store.genre.genre }}</p>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
         <h2 class="booking-title">ご予約</h2>
         <form>
           <ul>
-            <li>
+            <li class="flex">
               <p class="booking-date">来店日:</p>
               <datetime
                 label="日付を選択してください"
@@ -25,49 +25,65 @@
                 only-date
                 v-model="date"
                 :no-header="true"
+                min="start"
+                max="end"
                 color="#ffa500"
                 button-color="#ffa500"
                 class="date"
               ></datetime>
             </li>
-            <li>
+          </ul>
+          <ul>
+            <li class="time-color flex">
               <p class="booking-time">来店時間:</p>
-              <datetime
-                label="時間を選択してください"
-                format="hh:mm a"
-                formatted="hh:mm a"
-                only-time
-                :disabled-hours="[
-                  '01',
-                  '02',
-                  '03',
-                  '04',
-                  '05',
-                  '06',
-                  '07',
-                  '08',
+              <vue-timepicker
+                placeholder="時間を選択してください"
+                format="H:mm"
+                hour-label="時"
+                minute-label="分"
+                :hour-range="[
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
                 ]"
-                :minute-interval="15"
+                hide-disabled-hours
+                advanced-keyboard
+                manual-input
+                input-width="100%"
+                minute-interval="15"
                 v-model="time"
-                :no-header="true"
-                color="#ffa500"
-                button-color="#ffa500"
                 class="time"
-              ></datetime>
+              ></vue-timepicker>
             </li>
-            <li>
+          </ul>
+          <ul>
+            <li class="flex">
               <p class="booking-number">人数:</p>
               <select type="number" name="i" v-model="number" class="number">
                 <option value="">人数を選択してください</option>
-                <option v-for="i in 30" :key="i">{{ i }}人</option>
+                <option v-for="i in 30" :key="i">{{ i }}</option>
               </select>
+              <span id="number-span">人</span>
             </li>
           </ul>
         </form>
-        <button type="submit" class="button booking-button">予約する</button>
+        <button @click="openModal" type="button" class="button booking-button">
+          予約する
+        </button>
       </div>
     </div>
-    <p class="overview">{{ overview }}</p>
+    <Modal v-if="modal" @close="closeModal" :val="checkItem"></Modal>
+    <p class="overview">{{ store.overview }}</p>
     <button class="button back-button" @click="$router.push('/')">戻る</button>
   </div>
 </template>
@@ -75,24 +91,54 @@
 <script>
 import datetime from "vue-ctk-date-time-picker";
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
+import VueTimepicker from "vue2-timepicker";
+import "vue2-timepicker/dist/VueTimepicker.css";
+import axios from "axios";
+import Modal from '../components/BookingCheck';
 export default {
   components: {
     datetime,
+    "vue-timepicker": VueTimepicker,
+    Modal,
   },
   props: ["id"],
   data() {
     return {
-      name: "仙人",
-      area: "東京",
-      genre: "寿司",
-      image:
-        "https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg",
-      overview:
-        "料理長厳選の食材から作る寿司を用いたコースをぜひお楽しみください。食材・味・価格、お客様の満足度を徹底的に追及したお店です。特別な日のお食事、ビジネス接待まで気軽に使用することができます。",
-      time: "",
+      modal: false,
+      store: "",
       date: "",
+      time: "",
       number: "",
     };
+  },
+  methods: {
+    getStoreDetail() {
+      axios
+        .get("http://127.0.0.1:8000/api/store/" + this.id)
+        .then((response) => {
+          this.store = response.data.store;
+        });
+    },
+    openModal() {
+      this.modal = true;
+      this.checkItem = {
+        store_name:this.store.name,
+        store_id:this.store.id,
+        booking_date:this.date,
+        booking_time:this.time,
+        booking_number:this.number,
+      }
+    },
+    closeModal() {
+      this.modal = false;
+      this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+          });
+    }
+  },
+  created() {
+    this.getStoreDetail();
   },
 };
 </script>
@@ -102,25 +148,22 @@ export default {
     店舗詳細
 =============== */
 .detail {
-  width: 80%;
+  width: 90%;
   margin: 30px auto;
 }
+.storedetail {
+  width: 100%;
+}
 .detail-image-div {
-  position: relative;
-  width: 600px;
-  height: 500px;
+  width: 90%;
 }
 .detail-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
-  height: 100%;
 }
 .store-name {
+  padding-top: 30px;
   margin-bottom: 30px;
-  font-size: 25px;
+  font-size: 30px;
 }
 .area,
 .genre {
@@ -140,33 +183,35 @@ export default {
       予約
 =============== */
 .booking {
-  width: 90%;
+  width: 100%;
   margin: 60px 0 60px 20px;
   text-align: center;
 }
+ul {
+  margin-top: 30px;
+}
+li {
+  width: 90%;
+}
 .number {
-  width: 60%;
-  padding: 10px;
+  width: 100%;
+  padding: 8px;
+  font-size: 15px;
   color: rgb(131, 130, 130);
   border-radius: 4px;
 }
-.date,
-.time {
-  width: 60%;
-}
-li {
-  display: flex;
-  margin-bottom: 20px;
+.date {
+  width: 100%;
 }
 .booking-number,
 .booking-date,
 .booking-time {
-  font-size: 18px;
-  margin-top: 15px;
+  font-size: 20px;
+  margin-top: 12px;
   font-weight: bold;
 }
 .booking-number {
-  width: 35%;
+  width: 32%;
 }
 .booking-date,
 .booking-time {
@@ -177,18 +222,59 @@ form {
 }
 .booking-title {
   font-size: 25px;
-  margin-bottom: 50px;
+  margin: 30px 0 50px 0;
 }
 .booking-button {
-  margin-top: 30px;
-  width: 60%;
+  margin-top: 50px;
+  width: 40%;
   padding: 8px 10px;
 }
 
 .back-button {
-  margin-top: 30px;
-  margin-left: 50%;
-  padding: 5px 15px;
-  transform: translate(0, -50%);
+  width: 100px;
+  margin: 30px 50%;
+  padding: 5px 20px;
+  transform: translate(-50%);
+}
+.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
+.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
+  background: #ffa500;
+}
+#number-span {
+  font-size: 18px;
+  margin: 10px 0 0 5px;
+}
+/* ====================
+      レスポンシブ
+==================== */
+@media screen and (max-width: 768px) {
+  .detail {
+    width: 90%;
+    text-align: center;
+  }
+  .flex {
+    flex-wrap: wrap;
+  }
+  .detail-image-div {
+    width: 100%;
+  }
+  .number {
+    width: 90%;
+  }
+  .booking-number,
+  .booking-date,
+  .booking-time {
+    width: 100%;
+  }
+  .overview {
+    margin: 50px auto;
+  }
+  .tag {
+    display: flex;
+  }
+  .booking {
+    margin: 30px auto;
+  }
 }
 </style>

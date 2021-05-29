@@ -10,6 +10,7 @@
               type="email"
               id="email"
               placeholder="メールアドレスを入力してください"
+              v-model="email"
             />
           </li>
           <li>
@@ -18,15 +19,36 @@
               type="password"
               id="password"
               placeholder="パスワードを入力してください"
+              v-model="password"
             />
           </li>
         </ul>
-        <button type="submit" class="button">ログイン</button><br />
+        <button @click="login" type="button" class="button">ログイン</button
+        ><br />
         <a href="/register">会員でない方はこちら</a>
       </form>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
+    },
+  },
+};
+</script>
 
 <style scoped>
 .login {
@@ -58,5 +80,20 @@ li {
 h2 {
   font-size: 25px;
   margin-top: 120px;
+}
+.button {
+  padding: 10px 15px;
+}
+/* ====================
+      レスポンシブ
+==================== */
+@media screen and (max-width: 768px) {
+  .login {
+    width: 90%;
+  }
+  label,
+  input {
+    width: 90%;
+  }
 }
 </style>

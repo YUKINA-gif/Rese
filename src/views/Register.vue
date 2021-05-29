@@ -10,6 +10,7 @@
               type="text"
               id="name"
               placeholder="お名前を入力してください"
+              v-model="name"
             />
           </li>
           <li>
@@ -18,6 +19,7 @@
               type="email"
               id="email"
               placeholder="メールアドレスを入力してください"
+              v-model="email"
             />
           </li>
           <li>
@@ -26,15 +28,47 @@
               type="password"
               id="password"
               placeholder="パスワードを入力してください"
+              v-model="password"
             />
           </li>
         </ul>
-        <button type="submit" class="button">新規会員登録</button>
+        <button @click="register" type="button" class="button">
+          新規会員登録
+        </button>
       </form>
     </div>
   </div>
 </template>
 
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    register() {
+      axios
+        .post("http://127.0.0.1:8000/api/user", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log(response);
+          this.$router.replace("/thanks");
+        })
+        .catch((response) => {
+          alert(response);
+        });
+    },
+  },
+};
+</script>
 <style scoped>
 .register {
   width: 60%;
@@ -65,5 +99,20 @@ li {
 h2 {
   font-size: 25px;
   margin-top: 120px;
+}
+.button {
+  padding: 10px 15px;
+}
+/* ====================
+      レスポンシブ
+==================== */
+@media screen and (max-width: 768px) {
+  .register {
+    width: 90%;
+  }
+  label,
+  input {
+    width: 90%;
+  }
 }
 </style>

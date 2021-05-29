@@ -1,47 +1,63 @@
 <template>
   <div class="mypage">
     <p class="username">{{ name }}様</p>
-
+    <!-- 予約状況一覧 -->
     <span class="title">予約状況</span>
-    <div v-for="(booking, index) in bookings" :key="index" class="booking">
+    <div v-for="(booking, index) in bookings" :key="index" class="booking flex">
+      <img :src="booking.store.image" class="image store_image" />
       <table class="mybooking">
         <tr>
-          <th>店舗名:</th>
-          <td>{{ booking.storename }}</td>
+          <th>店名:</th>
+          <td>{{ booking.store.name }}</td>
         </tr>
         <tr>
           <th>予約日:</th>
-          <td>{{ booking.date }}</td>
+          <td>{{ booking.booking_date }}</td>
         </tr>
         <tr>
           <th>予約時間:</th>
-          <td>{{ booking.time }}</td>
+          <td>{{ booking.booking_time }}</td>
         </tr>
         <tr>
           <th>予約人数:</th>
-          <td>{{ booking.number }}人</td>
-          <button class="button" id="booking-button">予約取消</button>
+          <td>{{ booking.booking_number }}人</td>
         </tr>
       </table>
-    </div>
-    <span class="title">お気に入り店舗</span>
-    <p>全{{ stores.length }}件</p>
-    <div class="flex wrap store-flex">
-      <div class="store-card" v-for="(store, index) in stores" :key="index">
-        <img :src="store.image" alt="" class="store-image image" />
 
-        <span class="store-name">{{ store.name }}</span>
+      <div class="booking-button">
+        <button
+          class="button"
+          id="booking-update-button"
+          @click="openModal(booking)"
+        >
+          予約内容の変更
+        </button>
+        <button class="button" id="booking-delete-button" @click="openModalDel(booking)">予約取消</button>
+      </div>
+    </div>
+    <!-- 予約更新画面 -->
+    <Modal v-if="modal" @close="closeModal" :val="postItem"></Modal>
+    <!-- 予約削除画面 -->
+    <ModalDel v-if="modal_del" @close="closeModalDel" :val="deleteItem"></ModalDel>
+    <!-- お気に入り店舗 -->
+    <span class="title">お気に入り店舗</span>
+    <p>全{{ favorites.length }}件</p>
+    <div class="flex wrap store-flex">
+      <div class="store-card" v-for="(store, index) in favorites" :key="index">
+        <img :src="store.store.image" alt="" class="store-image image" />
+
+        <span class="store-name">{{ store.store.name }}</span>
         <img src="../assets/heart.png" alt="" class="png" />
 
         <div class="flex">
-          <p class="area">#{{ store.area }}</p>
-          <p class="genre">#{{ store.genre }}</p>
+          <p class="area">#{{ store.store.area.area }}</p>
+          <p class="genre">#{{ store.store.genre.genre }}</p>
         </div>
         <button
           class="button"
           @click="
             $router.push({
-              path: '/store/' + store.id,
+              path: '/detail/' + store.store_id,
               params: { id: store.id },
             })
           "
@@ -54,69 +70,69 @@
 </template>
 
 <script>
+import axios from "axios";
+import Modal from "../components/BookingUpdate";
+import ModalDel from '../components/BookingDelete';
 export default {
   data() {
     return {
-      name: "おなまえ",
-      bookings: [
-        {
-          id: 1,
-          storename: "仙人",
-          date: "2021-05-21",
-          time: "19:00",
-          number: 2,
-        },
-        {
-          id: 2,
-          storename: "仙人",
-          date: "2021-05-21",
-          time: "19:00",
-          number: 2,
-        },
-      ],
-      stores: [
-        {
-          id: 1,
-          name: "仙人",
-          area: "東京",
-          genre: "寿司",
-          image:
-            "https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg",
-        },
-        {
-          id: 2,
-          name: "仙人",
-          area: "東京",
-          genre: "寿司",
-          image:
-            "https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg",
-        },
-        {
-          id: 3,
-          name: "仙人",
-          area: "東京",
-          genre: "寿司",
-          image:
-            "https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg",
-        },
-        {
-          id: 4,
-          name: "仙人",
-          area: "東京",
-          genre: "寿司",
-          image:
-            "https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg",
-        },
-        {
-          id: 5,
-          name: "仙人",
-          area: "東京",
-          genre: "寿司",
-          image:
-            "https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg",
-        },
-      ],
+      name: this.$store.state.user.name,
+      bookings: [],
+      favorites: [],
+      modal: false,
+      modal_del: false,
+      postItem: "",
     };
+  },
+  components: {
+    Modal,
+    ModalDel,
+  },
+  methods: {
+    getMyFavorite() {
+      axios
+        .get(
+          "http://127.0.0.1:8000/api/user/" +
+            this.$store.state.user.id +
+            "/favorite"
+        )
+        .then((response) => {
+          this.favorites = response.data.data;
+        });
+    },
+    getMyBooking() {
+      axios
+        .get(
+          "http://127.0.0.1:8000/api/user/" +
+            this.$store.state.user.id +
+            "/booking"
+        )
+        .then((response) => {
+          this.bookings = response.data.data;
+        });
+    },
+    openModal(booking) {
+      this.modal = true;
+      this.postItem = booking;
+    },
+    closeModal() {
+      this.modal = false;
+      this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+          });
+    },
+    openModalDel(booking){
+      this.modal_del = true;
+      this.deleteItem = booking;
+    },
+    closeModalDel(){
+      this.modal_del = false;
+    },
+  },
+  created() {
+    this.getMyFavorite();
+    this.getMyBooking();
   },
 };
 </script>
@@ -125,13 +141,14 @@ export default {
   マイページ全体設計
 ==================== */
 .mypage {
-  width: 60%;
+  width: 70%;
   margin: 50px auto;
 }
 .username {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 20px 0;
+  padding-top: 20px;
 }
 .title {
   font-size: 18px;
@@ -144,32 +161,56 @@ export default {
       予約状況
 ==================== */
 .mybooking {
-  width: 60%;
-  margin: 0 auto 30px;
-  background-color: #fffaf2;
-  border-left: 4px solid #ffa500;
-  line-height: 1.7;
+  width: 50%;
+  font-size: 18px;
+}
+.booking{
+  margin-bottom: 20px;
+}
+.store_name {
+  font-weight: bold;
+  font-size: 20px;
+  width: 10%;
+  margin: 10px;
 }
 th {
-  padding: 3px;
-  width: 30%;
+  padding: 25px;
+  width: 1%;
   text-align: left;
+  background-color: #f8f3e9;
+  border: 1px solid #fff;
 }
 td {
-  width: 40%;
+  width: 3%;
+  border-bottom: 1px solid #f8f3e9;
+  padding-left: 5px;
 }
 h3 {
   margin: 20px;
 }
-#booking-button {
-  background-color: #d90303;
-  margin: 0 0 5px 20px;
+#booking-delete-button,
+#booking-update-button {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+#booking-delete-button{
+  background-color: rgb(204, 6, 6);
+}
+#booking-update-button{
+background-color: rgb(2, 223, 186);
+}
+.store_image {
+  width: 300px;
+}
+.booking-button{
+  width: 25%;
 }
 /* ====================
     お気に入り店舗
 ==================== */
 .store-card {
-  width: 30%;
+  width: 45%;
   position: relative;
   margin: 30px 1% 0 1%;
   border: 1px solid #c2c2c2;
@@ -195,5 +236,20 @@ h3 {
 .genre {
   margin: 15px 0 20px 10px;
   color: gray;
+}
+
+/* ====================
+      レスポンシブ
+==================== */
+@media screen and (max-width: 768px) {
+  .mypage {
+    width: 90%;
+  }
+  .mybooking,
+  #booking-update-button,
+  #booking-delete-button,
+  .store-card {
+    width: 100%;
+  }
 }
 </style>

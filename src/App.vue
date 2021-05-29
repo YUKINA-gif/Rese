@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
+    <div class="top">
     <router-view />
+    </div>
   </div>
 </template>
 
@@ -126,7 +128,7 @@ input, select {
 .button{
   background-color: #FFA500;
   color: #fff;
-  border: 1px solid #ffa500;
+  border: 1px solid #ccc;
   border-radius: 2px;
   cursor: pointer;
   padding: 5px 10px;
@@ -142,5 +144,12 @@ input, select {
 }
 .wrap{
   flex-wrap: wrap;
+}
+
+/* ====================
+   ヘッダー固定分調整
+==================== */
+.top{
+  margin-top: 60px;
 }
 </style>

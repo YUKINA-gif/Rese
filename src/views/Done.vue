@@ -16,4 +16,15 @@ h3 {
   font-size: 25px;
   margin-bottom: 15px;
 }
+/* ====================
+      レスポンシブ
+==================== */
+@media screen and (max-width: 768px) {
+  .booked{
+    width: 90%;
+  }
+  .button{
+    padding: 10px 30px;
+  }
+}
 </style>
