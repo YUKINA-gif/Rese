@@ -3,8 +3,7 @@
     <!-- メイン画像 -->
     <img src="../assets/italian.jpg" alt="mainimage" class="image mainimage" />
     <div class="search">
-
-    <!-- 店舗検索 -->
+      <!-- 店舗検索 -->
       <h2>店舗検索</h2>
       <div class="flex">
         <select name="エリア" v-model="seachArea">
@@ -41,7 +40,13 @@
             <div class="flex store-heart">
               <span class="store-name">{{ store.name }}</span>
               <div @click="favorite(store)">
-                <img :src="heart" alt="" class="png"/>
+                <img
+                  src="../assets/heart.png"
+                  alt=""
+                  class="png"
+                  v-if="checkFavorite(index)"
+                />
+                <img src="../assets/no-heart.png" alt="" class="png" v-else />
               </div>
             </div>
             <div class="flex">
@@ -54,7 +59,9 @@
                 $router.push({
                   path: '/detail/' + store.id,
                   params: { id: store.id },
-                })">
+                })
+              "
+            >
               店舗詳細・予約
             </button>
           </div>
@@ -111,25 +118,12 @@ export default {
     paginateClickCallback: function(pageNum) {
       this.currentPage = Number(pageNum);
     },
-    // 店舗一覧 + ユーザーお気に入り情報取得してハートに反映
+    // 店舗一覧
     getStores() {
       axios
         .get("http://127.0.0.1:8000/api/stores/" + this.$store.state.user.id)
         .then((response) => {
-          var items = [];
-          items = response.data.item.store;
-
-          for (let key in items) {
-            if (items[key].favorites == 0) {
-              console.log("no");
-              this.stores = items;
-              this.heart = require("../assets/no-heart.png");
-            } else {
-              console.log("ok");
-              this.stores = items;
-              this.heart = require("../assets/heart.png");
-            }
-          }
+          this.stores = response.data.item.store;
           this.areas = response.data.item.area;
           this.genres = response.data.item.genre;
         });
@@ -152,6 +146,14 @@ export default {
           });
       } else {
         this.$router.replace("/login");
+      }
+    },
+    // ユーザーお気に入り情報取得してハートに反映
+    checkFavorite(index) {
+      if (this.stores[index].favorites.length === 0) {
+        return false;
+      } else {
+        return true;
       }
     },
   },
@@ -222,11 +224,11 @@ h2 {
   font-weight: bold;
   font-size: 20px;
 }
-.store-heart{
+.store-heart {
   justify-content: space-between;
 }
-.png{
-  margin-right:10px;
+.png {
+  margin-right: 10px;
 }
 .store-button {
   padding: 7px 15px;

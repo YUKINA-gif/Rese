@@ -66,8 +66,14 @@
         <img :src="store.store.image" alt="" class="store-image image" />
 
         <span class="store-name">{{ store.store.name }}</span>
-        <img src="../assets/heart.png" alt="" class="png" />
-
+        <div @click="favorite(store)">
+                <img
+                  src="../assets/heart.png"
+                  alt=""
+                  class="png"
+                />
+                
+              </div>
         <div class="flex">
           <p class="area">#{{ store.store.area.area }}</p>
           <p class="genre">#{{ store.store.genre.genre }}</p>
@@ -159,6 +165,21 @@ export default {
     },
     closeModalDel() {
       this.modal_del = false;
+    },
+    // お気に入り店舗登録もしくは削除
+    favorite(store) {
+        axios
+          .post("http://127.0.0.1:8000/api/favorite", {
+            user_id: this.$store.state.user.id,
+            store_id: store.store_id,
+          })
+          .then((response) => {
+            console.log(response);
+            this.$router.go({
+              path: this.$router.currentRoute.path,
+              force: true,
+            });
+          });
     },
   },
   created() {

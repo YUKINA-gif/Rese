@@ -2,8 +2,8 @@
   <transition name="modal">
     <div class="overlay" @click.self="$emit('close')">
       <div class="modal-window">
-        <p id="title">予約削除</p>
-        <p class="check_text">本当にこの予約を削除しますか?</p>
+        <p id="title">予約取消</p>
+        <p class="check_text">本当にこの予約を取消しますか?</p>
 
         <button class="button yes_button" @click="booking_delete">はい</button>
         <button class="button" @click.self="$emit('close')">
@@ -25,19 +25,18 @@ export default {
     booking_delete() {
       axios
         .delete("http://127.0.0.1:8000/api/booking",{
-          id: this.val.id,
           user_id: this.$store.state.user.id,
+          id: this.val.id,
         })
         .then((response) => {
           console.log(response);
-          alert("予約を削除しました");
+          alert("予約内容を取消しました");
           this.$emit("close");
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           console.log(this.$store.state.user.id);
           console.log(this.val.id);
-        });
+        })
     },
   },
 };
