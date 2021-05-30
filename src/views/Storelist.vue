@@ -25,7 +25,7 @@
             >{{ genre.genre }}</option
           >
         </select>
-        <input type="serch" placeholder="店名" />
+        <input type="serch" placeholder="店名" v-model="seachStoreName" />
         <button type="submit" class="button seach_button">検索</button>
       </div>
     </div>
@@ -100,15 +100,24 @@ export default {
       parPage: 12,
       seachArea: "",
       seachGenre: "",
+      seachStoreName: "",
       heart: "",
     };
   },
   // ページネーション設定
   computed: {
-    getItems: function() {
+    getItems() {
       let start = (this.currentPage - 1) * this.parPage;
       let end = this.currentPage * this.parPage;
-      return this.stores.slice(start, end);
+      
+      const array = [];
+      for (let i in this.stores) {
+        const store = this.stores[i];
+        if (store.name.indexOf(this.seachStoreName) !== -1) {
+          array.push(store);
+        }
+      }
+      return array,this.stores.slice(start, end);
     },
     getPage: function() {
       return Math.ceil(this.stores.length / this.parPage);

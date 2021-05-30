@@ -24,19 +24,22 @@ export default {
   methods: {
     booking_delete() {
       axios
-        .delete("http://127.0.0.1:8000/api/booking",{
-          user_id: this.$store.state.user.id,
-          id: this.val.id,
+        .request({
+          method: "delete",
+          url: "http://127.0.0.1:8000/api/booking",
+          data: {
+            user_id: this.$store.state.user.id,
+            id: this.val.id,
+          },
         })
         .then((response) => {
           console.log(response);
           alert("予約内容を取消しました");
           this.$emit("close");
         })
-        .catch(() => {
-          console.log(this.$store.state.user.id);
-          console.log(this.val.id);
-        })
+        .catch((error) => {
+          console.log(error.config);
+        });
     },
   },
 };
@@ -44,7 +47,7 @@ export default {
 
 <style scoped>
 /* ====================
-      予約更新
+      予約取消
 ==================== */
 table {
   width: 100%;

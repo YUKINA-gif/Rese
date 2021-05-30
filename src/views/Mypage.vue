@@ -67,13 +67,8 @@
 
         <span class="store-name">{{ store.store.name }}</span>
         <div @click="favorite(store)">
-                <img
-                  src="../assets/heart.png"
-                  alt=""
-                  class="png"
-                />
-                
-              </div>
+          <img src="../assets/heart.png" alt="" class="png" />
+        </div>
         <div class="flex">
           <p class="area">#{{ store.store.area.area }}</p>
           <p class="genre">#{{ store.store.genre.genre }}</p>
@@ -84,7 +79,9 @@
             $router.push({
               path: '/detail/' + store.store_id,
               params: { id: store.id },
-            })">
+            })
+          "
+        >
           店舗詳細・予約
         </button>
       </div>
@@ -104,7 +101,6 @@ export default {
       favorites: [],
       modal: false,
       modal_del: false,
-      postItem: "",
       haveBooking: true,
       haveFavorite: true,
     };
@@ -129,6 +125,9 @@ export default {
           } else {
             this.haveFavorite = false;
           }
+        })
+        .catch((response) => {
+          console.log(response);
         });
     },
     // 予約状況取得
@@ -146,6 +145,9 @@ export default {
           } else {
             this.haveBooking = false;
           }
+        })
+        .catch((response) => {
+          console.log(response);
         });
     },
     openModal(booking) {
@@ -165,21 +167,25 @@ export default {
     },
     closeModalDel() {
       this.modal_del = false;
+      this.$router.go({
+        path: this.$router.currentRoute.path,
+        force: true,
+      });
     },
     // お気に入り店舗登録もしくは削除
     favorite(store) {
-        axios
-          .post("http://127.0.0.1:8000/api/favorite", {
-            user_id: this.$store.state.user.id,
-            store_id: store.store_id,
-          })
-          .then((response) => {
-            console.log(response);
-            this.$router.go({
-              path: this.$router.currentRoute.path,
-              force: true,
-            });
+      axios
+        .post("http://127.0.0.1:8000/api/favorite", {
+          user_id: this.$store.state.user.id,
+          store_id: store.store_id,
+        })
+        .then((response) => {
+          console.log(response);
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
           });
+        });
     },
   },
   created() {
