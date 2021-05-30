@@ -110,14 +110,7 @@ export default {
       let start = (this.currentPage - 1) * this.parPage;
       let end = this.currentPage * this.parPage;
       
-      const array = [];
-      for (let i in this.stores) {
-        const store = this.stores[i];
-        if (store.name.indexOf(this.seachStoreName) !== -1) {
-          array.push(store);
-        }
-      }
-      return array,this.stores.slice(start, end);
+      return this.stores.slice(start, end);
     },
     getPage: function() {
       return Math.ceil(this.stores.length / this.parPage);
@@ -130,7 +123,7 @@ export default {
     // 店舗一覧
     getStores() {
       axios
-        .get("http://127.0.0.1:8000/api/stores/" + this.$store.state.user.id)
+        .get("https://rese-booking.herokuapp.com/api/stores/" + this.$store.state.user.id)
         .then((response) => {
           this.stores = response.data.item.store;
           this.areas = response.data.item.area;
@@ -142,7 +135,7 @@ export default {
       // ログインしていなければログイン画面へ誘導
       if (this.$store.state.auth == true) {
         axios
-          .post("http://127.0.0.1:8000/api/favorite", {
+          .post("https://rese-booking.herokuapp.com/api/favorite", {
             user_id: this.$store.state.user.id,
             store_id: store.id,
           })
@@ -240,6 +233,7 @@ h2 {
   margin-right: 10px;
 }
 .store-button {
+  width: 70%;
   padding: 7px 15px;
   margin-left: 50%;
   transform: translate(-50%);

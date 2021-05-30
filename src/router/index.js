@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Storelist from "../views/Storelist.vue";
-import Mypage from "../views/Mypage.vue";
+import StoreList from "../views/StoreList.vue";
+import MyPage from "../views/MyPage.vue";
 import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
 import Thanks from "../views/Thanks.vue";
@@ -14,13 +14,13 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Storelist",
-    component: Storelist,
+    name: "StoreList",
+    component: StoreList,
   },
   {
     path: "/mypage",
-    name: "Mypage",
-    component: Mypage,
+    name: "MyPage",
+    component: MyPage,
     meta: {
       requiresAuth: true,
     },

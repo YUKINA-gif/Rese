@@ -99,7 +99,7 @@ export default {
   methods: {
     booking_update() {
       axios
-        .put("http://127.0.0.1:8000/api/booking", {
+        .put("https://rese-booking.herokuapp.com/api/booking", {
           id: this.val.id,
           user_id: this.$store.state.user.id,
           store_id: this.val.store_id,

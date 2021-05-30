@@ -114,7 +114,7 @@ export default {
     getMyFavorite() {
       axios
         .get(
-          "http://127.0.0.1:8000/api/user/" +
+          "https://rese-booking.herokuapp.com/api/user/" +
             this.$store.state.user.id +
             "/favorite"
         )
@@ -134,7 +134,7 @@ export default {
     getMyBooking() {
       axios
         .get(
-          "http://127.0.0.1:8000/api/user/" +
+          "https://rese-booking.herokuapp.com/api/user/" +
             this.$store.state.user.id +
             "/booking"
         )
@@ -150,6 +150,7 @@ export default {
           console.log(response);
         });
     },
+    // 予約更新モーダルウィンドウ表示
     openModal(booking) {
       this.modal = true;
       this.postItem = booking;
@@ -161,6 +162,7 @@ export default {
         force: true,
       });
     },
+    // 予約取消モーダルウィンドウ表示
     openModalDel(booking) {
       this.modal_del = true;
       this.deleteItem = booking;
@@ -175,7 +177,7 @@ export default {
     // お気に入り店舗登録もしくは削除
     favorite(store) {
       axios
-        .post("http://127.0.0.1:8000/api/favorite", {
+        .post("https://rese-booking.herokuapp.com/api/favorite", {
           user_id: this.$store.state.user.id,
           store_id: store.store_id,
         })

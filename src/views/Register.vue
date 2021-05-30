@@ -54,7 +54,7 @@ export default {
     // 会員登録
     register() {
       axios
-        .post("http://127.0.0.1:8000/api/user", {
+        .post("https://rese-booking.herokuapp.com/api/user", {
           name: this.name,
           email: this.email,
           password: this.password,

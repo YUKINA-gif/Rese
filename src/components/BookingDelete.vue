@@ -26,7 +26,7 @@ export default {
       axios
         .request({
           method: "delete",
-          url: "http://127.0.0.1:8000/api/booking",
+          url: "https://rese-booking.herokuapp.com/api/booking",
           data: {
             user_id: this.$store.state.user.id,
             id: this.val.id,

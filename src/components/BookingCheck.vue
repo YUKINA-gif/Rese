@@ -41,7 +41,7 @@ export default {
     booking() {
       if (this.$store.state.auth == true) {
         axios
-          .post("http://127.0.0.1:8000/api/booking", {
+          .post("https://rese-booking.herokuapp.com/api/booking", {
             user_id: this.$store.state.user.id,
             store_id: this.val.store_id,
             booking_date: this.val.booking_date,

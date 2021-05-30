@@ -120,7 +120,7 @@ export default {
     // 店舗情報取得
     getStoreDetail() {
       axios
-        .get("http://127.0.0.1:8000/api/store/" + this.id)
+        .get("https://rese-booking.herokuapp.com/api/store/" + this.id)
         .then((response) => {
           this.store = response.data.store;
         });
