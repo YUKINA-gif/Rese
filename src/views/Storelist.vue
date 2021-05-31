@@ -40,7 +40,8 @@
     <!-- 店舗一覧 -->
     <div class="stores_container">
       <h2 id="store_title">店舗一覧</h2>
-      <div class="flex wrap store_flex">
+      <p v-if="seachResult">検索店舗はありません</p>
+      <div class="flex wrap store_flex" v-else>
         <div class="store_card" v-for="(store, index) in getItems" :key="index">
           <img :src="store.image" alt="" class="store_image image" />
           <div>
@@ -109,6 +110,7 @@ export default {
       seachGenre: "",
       seachStoreName: "",
       heart: "",
+      seachResult: false
     };
   },
   // ページネーション設定
@@ -171,7 +173,7 @@ export default {
     // 店舗検索
     storeSeach() {
       axios
-        .get("https://rese-booking.herokuapp.com/api/storesSeach", {
+        .get("https://rese-booking.herokuapp.com/api/storesSeach/" + this.$store.state.user.id, {
           params: {
             name: this.seachStoreName,
             area_id: this.seachArea,
@@ -179,11 +181,12 @@ export default {
           },
         })
         .then((response) => {
-          this.stores = response.data.store;
+            this.stores = response.data.store;
+            this.seachResult = false;
+          })
+        .catch(() => {
+            this.seachResult = true;
         })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     clear() {
       this.$router.go({

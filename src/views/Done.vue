@@ -6,16 +6,16 @@
 </template>
 
 <style scoped>
-.booked {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 120px;
-}
-h3 {
-  font-size: 25px;
-  margin-bottom: 15px;
-}
+  .booked {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 120px;
+  }
+  h3 {
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
 /* ====================
       レスポンシブ
 ==================== */
