@@ -15,8 +15,8 @@
       <span></span>
     </div>
 
-    <nav :class="{ open: menu }" class="menu-content">
-      <ul class="hamburger-memu">
+    <nav :class="{ open: menu }" class="menu_content">
+      <ul class="hamburger_memu">
         <li><a href="/mypage">マイページ</a></li>
         <li><a href="/login">ログイン</a></li>
         <li><a href="/register">新規会員登録</a></li>
@@ -72,7 +72,7 @@ export default {
     font-weight: bold;
     cursor: pointer;
   }
-  .menu-content{
+  .menu_content{
     display: none;
   }
 /* ====================
@@ -120,7 +120,7 @@ export default {
     top: 20px;
     transform: rotate(-45deg);
   }
-  .menu-content {
+  .menu_content {
     display: block;
     width: 50%;
     text-align: center;
@@ -133,7 +133,7 @@ export default {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
     z-index: 999;
   }
-  .menu-content li {
+  .menu_content li {
     color: #333333;
     margin: 15px;
     padding: 5px;
@@ -144,10 +144,10 @@ export default {
     text-align: left;
     cursor: pointer;
   }
-  .menu-content.open {
+  .menu_content.open {
     right: 0;
   }
-  .menu-content li a {
+  .menu_content li a {
     text-decoration: none;
     color: #333333;
     display: block;

@@ -32,17 +32,17 @@
         </tr>
       </table>
 
-      <div class="booking-button">
+      <div class="booking_button">
         <button
           class="button"
-          id="booking-update-button"
+          id="booking_update_button"
           @click="openModal(booking)"
         >
           予約内容の変更
         </button>
         <button
           class="button"
-          id="booking-delete-button"
+          id="booking_delete_button"
           @click="openModalDel(booking)"
         >
           予約取消
@@ -61,11 +61,11 @@
     <span class="title">お気に入り店舗</span>
     <p>全{{ favorites.length }}件</p>
     <p v-if="haveFavorite">お気に入り店舗はありません</p>
-    <div class="flex wrap store-flex" v-else>
-      <div class="store-card" v-for="(store, index) in favorites" :key="index">
-        <img :src="store.store.image" alt="" class="store-image image" />
+    <div class="flex wrap store_flex" v-else>
+      <div class="store_card" v-for="(store, index) in favorites" :key="index">
+        <img :src="store.store.image" alt="" class="store_image image" />
 
-        <span class="store-name">{{ store.store.name }}</span>
+        <span class="store_name">{{ store.store.name }}</span>
         <div @click="favorite(store)">
           <img src="../assets/heart.png" alt="" class="png" />
         </div>
@@ -200,23 +200,23 @@ export default {
 /* ====================
   マイページ全体設計
 ==================== */
-.mypage {
-  width: 70%;
-  margin: 50px auto;
-}
-.username {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 20px 0;
-  padding-top: 20px;
-}
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  border-bottom: 3px solid #ffa500;
-  display: inline-block;
-  margin: 20px 0;
-}
+  .mypage {
+    width: 70%;
+    margin: 50px auto;
+  }
+  .username {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding-top: 20px;
+  }
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 3px solid #ffa500;
+    display: inline-block;
+    margin: 20px 0;
+  }
 /* ====================
       予約状況
 ==================== */
@@ -248,28 +248,28 @@ export default {
   h3 {
     margin: 20px;
   }
-  #booking-delete-button,
-  #booking-update-button {
+  #booking_delete_button,
+  #booking_update_button {
     color: #fff;
     font-weight: bold;
     margin-bottom: 10px;
   }
-  #booking-delete-button {
+  #booking_delete_button {
     background-color: rgb(204, 6, 6);
   }
-  #booking-update-button {
+  #booking_update_button {
     background-color: rgb(2, 223, 186);
   }
   .store_image {
     width: 300px;
   }
-  .booking-button {
+  .booking_button {
     width: 25%;
   }
 /* ====================
     お気に入り店舗
 ==================== */
-  .store-card {
+  .store_card {
     width: 45%;
     position: relative;
     margin: 30px 1% 0 1%;
@@ -280,7 +280,7 @@ export default {
     position: absolute;
     right: 10px;
   }
-  .store-name {
+  .store_name {
     font-weight: bold;
     font-size: 20px;
     margin-left: 10px;
@@ -306,9 +306,9 @@ export default {
     width: 90%;
   }
   .mybooking,
-  #booking-update-button,
-  #booking-delete-button,
-  .store-card {
+  #booking_update_button,
+  #booking_delete_button,
+  .store_card {
     width: 100%;
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <h2>新規会員登録</h2>
-    <div class="register-card">
+    <div class="register_card">
       <form>
         <ul>
           <li>
@@ -76,7 +76,7 @@ export default {
     margin: 0 auto;
     text-align: center;
   }
-  .register-card {
+  .register_card {
     width: 80%;
     margin: 50px auto;
     padding: 30px;

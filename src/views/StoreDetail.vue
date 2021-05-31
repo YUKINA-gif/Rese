@@ -2,10 +2,10 @@
   <div class="detail">
     <!-- 店舗詳細 -->
     <div class="flex">
-      <div class="storedetail">
-        <h2 class="store-name">{{ store.name }}</h2>
-        <div class="detail-image-div">
-          <img :src="store.image" alt="storeimage" class="image detail-image" />
+      <div class="store_detail">
+        <h2 class="store_name">{{ store.name }}</h2>
+        <div class="detail_image_div">
+          <img :src="store.image" alt="store_image" class="image detail_image" />
         </div>
         <div class="flex tag">
           <p class="area" v-if="store">#{{ store.area.area }}</p>
@@ -14,12 +14,12 @@
       </div>
     <!-- 予約 -->
       <div class="booking">
-        <h2 class="booking-title">ご予約</h2>
+        <h2 class="booking_title">ご予約</h2>
         <form>
           <ul>
             <li class="flex">
               <!-- 来店日 -->
-              <p class="booking-date">来店日:</p>
+              <p class="booking_date">来店日:</p>
               <datetime
                 label="日付を選択してください"
                 format="YYYY-MM-DD"
@@ -37,8 +37,8 @@
           </ul>
           <!-- 来店時間 -->
           <ul>
-            <li class="time-color flex">
-              <p class="booking-time">来店時間:</p>
+            <li class="time_color flex">
+              <p class="booking_time">来店時間:</p>
               <vue-timepicker
                 placeholder="時間を選択してください"
                 format="H:mm"
@@ -72,16 +72,16 @@
           <!-- 来店人数 -->
           <ul>
             <li class="flex">
-              <p class="booking-number">人数:</p>
+              <p class="booking_number">人数:</p>
               <select type="number" name="i" v-model="number" class="number">
                 <option value="">人数を選択してください</option>
                 <option v-for="i in 30" :key="i">{{ i }}</option>
               </select>
-              <span id="number-span">人</span>
+              <span id="number_span">人</span>
             </li>
           </ul>
         </form>
-        <button @click="openModal" type="button" class="button booking-button">
+        <button @click="openModal" type="button" class="button booking_button">
           予約する
         </button>
       </div>
@@ -89,7 +89,7 @@
     <!-- 予約最終確認（モーダルウィンドウ） -->
     <Modal v-if="modal" @close="closeModal" :val="checkItem"></Modal>
     <p class="overview">{{ store.overview }}</p>
-    <button class="button back-button" @click="$router.push('/')">戻る</button>
+    <button class="button back_button" @click="$router.push('/')">戻る</button>
   </div>
 </template>
 
@@ -163,16 +163,16 @@ export default {
     width: 90%;
     margin: 30px auto;
   }
-  .storedetail {
+  .store_detail {
     width: 100%;
   }
-  .detail-image-div {
+  .detail_image_div {
     width: 90%;
   }
-  .detail-image {
+  .detail_image {
     width: 100%;
   }
-  .store-name {
+  .store_name {
     padding-top: 30px;
     margin-bottom: 30px;
     font-size: 30px;
@@ -215,45 +215,45 @@ export default {
   .date {
     width: 100%;
   }
-  .booking-number,
-  .booking-date,
-  .booking-time {
+  .booking_number,
+  .booking_date,
+  .booking_time {
     font-size: 20px;
     margin-top: 12px;
     font-weight: bold;
   }
-  .booking-number {
+  .booking_number {
     width: 32%;
   }
-  .booking-date,
-  .booking-time {
+  .booking_date,
+  .booking_time {
     width: 30%;
   }
   form {
     text-align: left;
   }
-  .booking-title {
+  .booking_title {
     font-size: 25px;
     margin: 30px 0 50px 0;
   }
-  .booking-button {
+  .booking_button {
     margin-top: 50px;
     width: 40%;
     padding: 8px 10px;
   }
 
-  .back-button {
+  .back_button {
     width: 100px;
     margin: 30px 50%;
     padding: 5px 20px;
     transform: translate(-50%);
   }
-  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
-  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
-  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
+  .time_color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
+  .time_color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+  .time_color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
     background: #ffa500;
   }
-  #number-span {
+  #number_span {
     font-size: 18px;
     margin: 10px 0 0 5px;
   }
@@ -268,15 +268,15 @@ export default {
   .flex {
     flex-wrap: wrap;
   }
-  .detail-image-div {
+  .detail_image_div {
     width: 100%;
   }
   .number {
     width: 90%;
   }
-  .booking-number,
+  .booking_number,
   .booking-date,
-  .booking-time {
+  .booking_time {
     width: 100%;
   }
   .overview {

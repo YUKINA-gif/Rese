@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <h2>ログイン</h2>
-    <div class="login-card">
+    <div class="login_card">
       <form action="">
         <ul>
           <li>
@@ -57,7 +57,7 @@ export default {
     margin: 0 auto;
     text-align: center;
   }
-  .login-card {
+  .login_card {
     width: 80%;
     margin: 50px auto;
     padding: 30px;

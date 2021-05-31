@@ -1,13 +1,13 @@
 <template>
   <div id="main">
     <!-- メイン画像 -->
-    <img src="../assets/italian.jpg" alt="mainimage" class="image mainimage" />
+    <img src="../assets/italian.jpg" alt="main_image" class="image main_image" />
     <div class="search">
       <!-- 店舗検索 -->
       <h2>店舗検索</h2>
       <div class="flex">
         <select name="エリア" v-model="seachArea">
-          <option value="" hidden class="pull-down">エリア </option>
+          <option value="" hidden class="pull_down">エリア </option>
           <option
             v-for="(area, index) in areas"
             :key="index"
@@ -17,7 +17,7 @@
         </select>
 
         <select name="ジャンル" v-model="seachGenre">
-          <option value="" hidden class="pull-down">ジャンル</option>
+          <option value="" hidden class="pull_down">ジャンル</option>
           <option
             v-for="(genre, index) in genres"
             :key="index"
@@ -31,14 +31,14 @@
     </div>
 
     <!-- 店舗一覧 -->
-    <div class="stores-container">
-      <h2 id="store-title">店舗一覧</h2>
-      <div class="flex wrap store-flex">
-        <div class="store-card" v-for="(store, index) in getItems" :key="index">
-          <img :src="store.image" alt="" class="store-image image" />
+    <div class="stores_container">
+      <h2 id="store_title">店舗一覧</h2>
+      <div class="flex wrap store_flex">
+        <div class="store_card" v-for="(store, index) in getItems" :key="index">
+          <img :src="store.image" alt="" class="store_image image" />
           <div>
-            <div class="flex store-heart">
-              <span class="store-name">{{ store.name }}</span>
+            <div class="flex store_heart">
+              <span class="store_name">{{ store.name }}</span>
               <div @click="favorite(store)">
                 <img
                   src="../assets/heart.png"
@@ -54,7 +54,7 @@
               <p>#{{ store.genre.genre }}</p>
             </div>
             <button
-              class="button store-button"
+              class="button store_button"
               @click="
                 $router.push({
                   path: '/detail/' + store.id,
@@ -75,7 +75,7 @@
       :prev-text="'<'"
       :next-text="'>'"
       :click-handler="paginateClickCallback"
-      :container-class="'page-ui'"
+      :container-class="'page_ui'"
     ></paginate>
     <!-- フッター -->
     <Footer />
@@ -169,7 +169,7 @@ export default {
 /* ====================
     メイン画像
 ==================== */
-  .mainimage {
+  .main_image {
   height: 580px;
 }
 
@@ -206,33 +206,33 @@ export default {
 /* ====================
     店舗一覧
 ==================== */
-  #store-title {
+  #store_title {
     font-size: 22px;
     margin-left: 20px;
   }
-  .stores-container {
+  .stores_container {
     width: 95%;
     margin: 50px auto;
     line-height: 2;
   }
-  .store-card {
+  .store_card {
     width: 22.5%;
     position: relative;
     margin: 30px 1% 0 1%;
     border: 1px solid #c2c2c2;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
   }
-  .store-name {
+  .store_name {
     font-weight: bold;
     font-size: 20px;
   }
-  .store-heart {
+  .store_heart {
     justify-content: space-between;
   }
   .png {
     margin-right: 10px;
   }
-  .store-button {
+  .store_button {
     width: 70%;
     padding: 7px 15px;
     margin-left: 50%;
@@ -253,26 +253,23 @@ export default {
     margin: 0 auto 20px auto;
     justify-content: space-around;
   }
-  .page-ui {
+  .page_ui {
     font-size: 20px;
   }
 /* ====================
       レスポンシブ
 ==================== */
 @media screen and (max-width: 768px) {
-  .store-card {
+  .store_card {
     width: 100%;
     margin: 20px auto;
   }
-  .store-button {
+  .store_button {
     width: 80%;
   }
   .search {
     width: 70%;
     text-align: center;
-  }
-  .flex {
-    display: block;
   }
   select {
     width: 80%;

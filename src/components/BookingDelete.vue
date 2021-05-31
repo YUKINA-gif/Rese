@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="overlay" @click.self="$emit('close')">
-      <div class="modal-window">
+      <div class="modal_window">
         <p id="title">予約取消</p>
         <p class="check_text">本当にこの予約を取消しますか?</p>
 
@@ -79,7 +79,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .modal-window {
+  .modal_window {
     text-align: center;
     z-index: 2;
     width: 40%;
