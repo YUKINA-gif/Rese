@@ -63,7 +63,7 @@
     <p v-if="haveFavorite">お気に入り店舗はありません</p>
     <div class="flex wrap store_flex" v-else>
       <div class="store_card" v-for="(store, index) in favorites" :key="index">
-        <img :src="store.store.image" alt="" class="store_image image" />
+        <img :src="store.store.image" alt="" class="image" />
 
         <span class="store_name">{{ store.store.name }}</span>
         <div @click="favorite(store)">
