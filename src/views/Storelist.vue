@@ -1,7 +1,11 @@
 <template>
   <div id="main">
     <!-- メイン画像 -->
-    <img src="../assets/italian.jpg" alt="main_image" class="image main_image" />
+    <img
+      src="../assets/italian.jpg"
+      alt="main_image"
+      class="image main_image"
+    />
     <div class="search">
       <!-- 店舗検索 -->
       <h2>店舗検索</h2>
@@ -26,7 +30,10 @@
           >
         </select>
         <input type="serch" placeholder="店名" v-model="seachStoreName" />
-        <button type="submit" class="button seach_button">検索</button>
+        <button type="submit" class="button seach_button" @click="storeSeach">
+          検索
+        </button>
+        <button class="button delete_seach" @click="clear">クリア</button>
       </div>
     </div>
 
@@ -109,7 +116,7 @@ export default {
     getItems() {
       let start = (this.currentPage - 1) * this.parPage;
       let end = this.currentPage * this.parPage;
-      
+
       return this.stores.slice(start, end);
     },
     getPage: function() {
@@ -123,7 +130,10 @@ export default {
     // 店舗一覧
     getStores() {
       axios
-        .get("https://rese-booking.herokuapp.com/api/stores/" + this.$store.state.user.id)
+        .get(
+          "https://rese-booking.herokuapp.com/api/stores/" +
+            this.$store.state.user.id
+        )
         .then((response) => {
           this.stores = response.data.item.store;
           this.areas = response.data.item.area;
@@ -152,11 +162,34 @@ export default {
     },
     // ユーザーお気に入り情報取得してハートに反映
     checkFavorite(index) {
-      if (this.stores[index].favorites.length === 0) {
+      if (this.stores[index].favorites == 0) {
         return false;
       } else {
         return true;
       }
+    },
+    // 店舗検索
+    storeSeach() {
+      axios
+        .get("https://rese-booking.herokuapp.com/api/storesSeach", {
+          params: {
+            name: this.seachStoreName,
+            area_id: this.seachArea,
+            genre_id: this.seachGenre,
+          },
+        })
+        .then((response) => {
+          this.stores = response.data.store;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    clear() {
+      this.$router.go({
+        path: this.$router.currentRoute.path,
+        force: true,
+      });
     },
   },
   created() {
@@ -169,93 +202,98 @@ export default {
 /* ====================
     メイン画像
 ==================== */
-  .main_image {
+.main_image {
   height: 580px;
 }
 
 /* ====================
       店舗検索
 ==================== */
-  .search {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -80%);
-    background: #fff;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-    width: 60%;
-    padding: 25px;
-  }
-  select,
-  input {
-    padding: 7px;
-    margin-right: 10px;
-  }
-  select {
-    width: 20%;
-  }
-  input {
-    width: 40%;
-  }
-  h2 {
-    margin-bottom: 10px;
-  }
-  .seach_button {
-    width: 10%;
-    line-height: 28px;
-  }
+.search {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  background: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  width: 60%;
+  padding: 25px;
+}
+select,
+input {
+  padding: 7px;
+  margin-right: 10px;
+}
+select {
+  width: 20%;
+}
+input {
+  width: 40%;
+}
+h2 {
+  margin-bottom: 10px;
+}
+.seach_button,
+.delete_seach {
+  width: 10%;
+  line-height: 28px;
+}
+.delete_seach {
+  background-color: brown;
+  margin-left: 10px;
+}
 /* ====================
     店舗一覧
 ==================== */
-  #store_title {
-    font-size: 22px;
-    margin-left: 20px;
-  }
-  .stores_container {
-    width: 95%;
-    margin: 50px auto;
-    line-height: 2;
-  }
-  .store_card {
-    width: 22.5%;
-    position: relative;
-    margin: 30px 1% 0 1%;
-    border: 1px solid #c2c2c2;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-  }
-  .store_name {
-    font-weight: bold;
-    font-size: 20px;
-  }
-  .store_heart {
-    justify-content: space-between;
-  }
-  .png {
-    margin-right: 10px;
-  }
-  .store_button {
-    width: 70%;
-    padding: 7px 15px;
-    margin-left: 50%;
-    transform: translate(-50%);
-    margin-bottom: 30px;
-    font-size: 15px;
-  }
-  p {
-    margin: 15px 0 20px 10px;
-    color: gray;
-  }
-  span {
-    margin-left: 10px;
-  }
-  .pagination {
-    width: 150px;
-    list-style: none;
-    margin: 0 auto 20px auto;
-    justify-content: space-around;
-  }
-  .page_ui {
-    font-size: 20px;
-  }
+#store_title {
+  font-size: 22px;
+  margin-left: 20px;
+}
+.stores_container {
+  width: 95%;
+  margin: 50px auto;
+  line-height: 2;
+}
+.store_card {
+  width: 22.5%;
+  position: relative;
+  margin: 30px 1% 0 1%;
+  border: 1px solid #c2c2c2;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+}
+.store_name {
+  font-weight: bold;
+  font-size: 20px;
+}
+.store_heart {
+  justify-content: space-between;
+}
+.png {
+  margin-right: 10px;
+}
+.store_button {
+  width: 70%;
+  padding: 7px 15px;
+  margin-left: 50%;
+  transform: translate(-50%);
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+p {
+  margin: 15px 0 20px 10px;
+  color: gray;
+}
+span {
+  margin-left: 10px;
+}
+.pagination {
+  width: 150px;
+  list-style: none;
+  margin: 0 auto 20px auto;
+  justify-content: space-around;
+}
+.page_ui {
+  font-size: 20px;
+}
 /* ====================
       レスポンシブ
 ==================== */
