@@ -64,11 +64,12 @@
     <div class="flex wrap store_flex" v-else>
       <div class="store_card" v-for="(store, index) in favorites" :key="index">
         <img :src="store.store.image" alt="" class="image" />
-
+      <div class="flex">
         <span class="store_name">{{ store.store.name }}</span>
         <div @click="favorite(store)">
           <img src="../assets/heart.png" alt="" class="png" />
         </div>
+      </div>
         <div class="flex">
           <p class="area">#{{ store.store.area.area }}</p>
           <p class="genre">#{{ store.store.genre.genre }}</p>
@@ -281,16 +282,17 @@ export default {
     right: 10px;
   }
   .store_name {
+    width: 100%;
     font-weight: bold;
     font-size: 20px;
-    margin-left: 10px;
+    margin-top: 10px;
   }
   .button {
     width: 60%;
     padding: 7px 15px;
     margin-left: 50%;
     transform: translate(-50%);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   .area,
   .genre {
