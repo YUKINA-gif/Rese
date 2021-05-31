@@ -169,93 +169,93 @@ export default {
 /* ====================
     メイン画像
 ==================== */
-.mainimage {
+  .mainimage {
   height: 580px;
 }
 
 /* ====================
       店舗検索
 ==================== */
-.search {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -80%);
-  background: #fff;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-  width: 60%;
-  padding: 25px;
-}
-select,
-input {
-  padding: 7px;
-  margin-right: 10px;
-}
-select {
-  width: 20%;
-}
-input {
-  width: 40%;
-}
-h2 {
-  margin-bottom: 10px;
-}
-.seach_button {
-  width: 10%;
-  line-height: 28px;
-}
+  .search {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    background: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+    width: 60%;
+    padding: 25px;
+  }
+  select,
+  input {
+    padding: 7px;
+    margin-right: 10px;
+  }
+  select {
+    width: 20%;
+  }
+  input {
+    width: 40%;
+  }
+  h2 {
+    margin-bottom: 10px;
+  }
+  .seach_button {
+    width: 10%;
+    line-height: 28px;
+  }
 /* ====================
     店舗一覧
 ==================== */
-#store-title {
-  font-size: 22px;
-  margin-left: 20px;
-}
-.stores-container {
-  width: 95%;
-  margin: 50px auto;
-  line-height: 2;
-}
-.store-card {
-  width: 22.5%;
-  position: relative;
-  margin: 30px 1% 0 1%;
-  border: 1px solid #c2c2c2;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-}
-.store-name {
-  font-weight: bold;
-  font-size: 20px;
-}
-.store-heart {
-  justify-content: space-between;
-}
-.png {
-  margin-right: 10px;
-}
-.store-button {
-  width: 70%;
-  padding: 7px 15px;
-  margin-left: 50%;
-  transform: translate(-50%);
-  margin-bottom: 30px;
-  font-size: 15px;
-}
-p {
-  margin: 15px 0 20px 10px;
-  color: gray;
-}
-span {
-  margin-left: 10px;
-}
-.pagination {
-  width: 150px;
-  list-style: none;
-  margin: 0 auto 20px auto;
-  justify-content: space-around;
-}
-.page-ui {
-  font-size: 20px;
-}
+  #store-title {
+    font-size: 22px;
+    margin-left: 20px;
+  }
+  .stores-container {
+    width: 95%;
+    margin: 50px auto;
+    line-height: 2;
+  }
+  .store-card {
+    width: 22.5%;
+    position: relative;
+    margin: 30px 1% 0 1%;
+    border: 1px solid #c2c2c2;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  }
+  .store-name {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .store-heart {
+    justify-content: space-between;
+  }
+  .png {
+    margin-right: 10px;
+  }
+  .store-button {
+    width: 70%;
+    padding: 7px 15px;
+    margin-left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 30px;
+    font-size: 15px;
+  }
+  p {
+    margin: 15px 0 20px 10px;
+    color: gray;
+  }
+  span {
+    margin-left: 10px;
+  }
+  .pagination {
+    width: 150px;
+    list-style: none;
+    margin: 0 auto 20px auto;
+    justify-content: space-around;
+  }
+  .page-ui {
+    font-size: 20px;
+  }
 /* ====================
       レスポンシブ
 ==================== */

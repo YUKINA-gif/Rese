@@ -121,57 +121,57 @@ export default {
 /* ====================
       予約更新
 ==================== */
-table {
-  width: 100%;
-  text-align: left;
-}
-th {
-  width: 30%;
-  background: #f8f3e9;
-  padding: 15px 5px;
-  border: 1px solid #fff;
-}
-td {
-  padding-left: 5px;
-}
-#title {
-  font-size: 18px;
-  margin: 10px;
-  font-weight: bold;
-}
-.overlay {
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-window {
-  text-align: center;
-  z-index: 2;
-  width: 50%;
-  padding: 10px;
-  background: #fff;
-  border-top: 8px solid #ffa500;
-}
-.update_button {
-  background-color: rgb(2, 223, 186);
-}
-.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
-.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
-.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
-  background: #ffa500;
-}
-.number {
-  width: 100%;
-  padding: 8px;
-  font-size: 15px;
-  color: rgb(131, 130, 130);
-  border-radius: 4px;
-}
+  table {
+    width: 100%;
+    text-align: left;
+  }
+  th {
+    width: 30%;
+    background: #f8f3e9;
+    padding: 15px 5px;
+    border: 1px solid #fff;
+  }
+  td {
+    padding-left: 5px;
+  }
+  #title {
+    font-size: 18px;
+    margin: 10px;
+    font-weight: bold;
+  }
+  .overlay {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-window {
+    text-align: center;
+    z-index: 2;
+    width: 50%;
+    padding: 10px;
+    background: #fff;
+    border-top: 8px solid #ffa500;
+  }
+  .update_button {
+    background-color: rgb(2, 223, 186);
+  }
+  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
+  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
+    background: #ffa500;
+  }
+  .number {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    color: rgb(131, 130, 130);
+    border-radius: 4px;
+  }
 </style>

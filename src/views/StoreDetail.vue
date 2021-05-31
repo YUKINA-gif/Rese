@@ -159,104 +159,104 @@ export default {
 /* ===============
     店舗詳細
 =============== */
-.detail {
-  width: 90%;
-  margin: 30px auto;
-}
-.storedetail {
-  width: 100%;
-}
-.detail-image-div {
-  width: 90%;
-}
-.detail-image {
-  width: 100%;
-}
-.store-name {
-  padding-top: 30px;
-  margin-bottom: 30px;
-  font-size: 30px;
-}
-.area,
-.genre {
-  font-size: 20px;
-  color: #c2c2c2;
-}
-.area {
-  margin-right: 15px;
-}
-.flex {
-  margin: 10px 0;
-}
-.overview {
-  font-size: 18px;
-}
+  .detail {
+    width: 90%;
+    margin: 30px auto;
+  }
+  .storedetail {
+    width: 100%;
+  }
+  .detail-image-div {
+    width: 90%;
+  }
+  .detail-image {
+    width: 100%;
+  }
+  .store-name {
+    padding-top: 30px;
+    margin-bottom: 30px;
+    font-size: 30px;
+  }
+  .area,
+  .genre {
+    font-size: 20px;
+    color: #c2c2c2;
+  }
+  .area {
+    margin-right: 15px;
+  }
+  .flex {
+    margin: 10px 0;
+  }
+  .overview {
+    font-size: 18px;
+  }
 /* ===============
       予約
 =============== */
-.booking {
-  width: 100%;
-  margin: 60px 0 60px 20px;
-  text-align: center;
-}
-ul {
-  margin-top: 30px;
-}
-li {
-  width: 90%;
-}
-.number {
-  width: 100%;
-  padding: 8px;
-  font-size: 15px;
-  color: rgb(131, 130, 130);
-  border-radius: 4px;
-}
-.date {
-  width: 100%;
-}
-.booking-number,
-.booking-date,
-.booking-time {
-  font-size: 20px;
-  margin-top: 12px;
-  font-weight: bold;
-}
-.booking-number {
-  width: 32%;
-}
-.booking-date,
-.booking-time {
-  width: 30%;
-}
-form {
-  text-align: left;
-}
-.booking-title {
-  font-size: 25px;
-  margin: 30px 0 50px 0;
-}
-.booking-button {
-  margin-top: 50px;
-  width: 40%;
-  padding: 8px 10px;
-}
+  .booking {
+    width: 100%;
+    margin: 60px 0 60px 20px;
+    text-align: center;
+  }
+  ul {
+    margin-top: 30px;
+  }
+  li {
+    width: 90%;
+  }
+  .number {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    color: rgb(131, 130, 130);
+    border-radius: 4px;
+  }
+  .date {
+    width: 100%;
+  }
+  .booking-number,
+  .booking-date,
+  .booking-time {
+    font-size: 20px;
+    margin-top: 12px;
+    font-weight: bold;
+  }
+  .booking-number {
+    width: 32%;
+  }
+  .booking-date,
+  .booking-time {
+    width: 30%;
+  }
+  form {
+    text-align: left;
+  }
+  .booking-title {
+    font-size: 25px;
+    margin: 30px 0 50px 0;
+  }
+  .booking-button {
+    margin-top: 50px;
+    width: 40%;
+    padding: 8px 10px;
+  }
 
-.back-button {
-  width: 100px;
-  margin: 30px 50%;
-  padding: 5px 20px;
-  transform: translate(-50%);
-}
-.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
-.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
-.time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
-  background: #ffa500;
-}
-#number-span {
-  font-size: 18px;
-  margin: 10px 0 0 5px;
-}
+  .back-button {
+    width: 100px;
+    margin: 30px 50%;
+    padding: 5px 20px;
+    transform: translate(-50%);
+  }
+  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
+  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+  .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:hover {
+    background: #ffa500;
+  }
+  #number-span {
+    font-size: 18px;
+    margin: 10px 0 0 5px;
+  }
 /* ====================
       レスポンシブ
 ==================== */

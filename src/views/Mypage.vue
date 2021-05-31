@@ -220,83 +220,83 @@ export default {
 /* ====================
       予約状況
 ==================== */
-.mybooking {
-  width: 50%;
-  font-size: 18px;
-}
-.booking {
-  margin-bottom: 20px;
-}
-.store_name {
-  font-weight: bold;
-  font-size: 20px;
-  width: 10%;
-  margin: 10px;
-}
-th {
-  padding: 25px;
-  width: 1%;
-  text-align: left;
-  background-color: #f8f3e9;
-  border: 1px solid #fff;
-}
-td {
-  width: 3%;
-  border-bottom: 1px solid #f8f3e9;
-  padding-left: 5px;
-}
-h3 {
-  margin: 20px;
-}
-#booking-delete-button,
-#booking-update-button {
-  color: #fff;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-#booking-delete-button {
-  background-color: rgb(204, 6, 6);
-}
-#booking-update-button {
-  background-color: rgb(2, 223, 186);
-}
-.store_image {
-  width: 300px;
-}
-.booking-button {
-  width: 25%;
-}
+  .mybooking {
+    width: 50%;
+    font-size: 18px;
+  }
+  .booking {
+    margin-bottom: 20px;
+  }
+  .store_name {
+    font-weight: bold;
+    font-size: 20px;
+    width: 10%;
+    margin: 10px;
+  }
+  th {
+    padding: 25px;
+    width: 1%;
+    text-align: left;
+    background-color: #f8f3e9;
+    border: 1px solid #fff;
+  }
+  td {
+    width: 3%;
+    border-bottom: 1px solid #f8f3e9;
+    padding-left: 5px;
+  }
+  h3 {
+    margin: 20px;
+  }
+  #booking-delete-button,
+  #booking-update-button {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  #booking-delete-button {
+    background-color: rgb(204, 6, 6);
+  }
+  #booking-update-button {
+    background-color: rgb(2, 223, 186);
+  }
+  .store_image {
+    width: 300px;
+  }
+  .booking-button {
+    width: 25%;
+  }
 /* ====================
     お気に入り店舗
 ==================== */
-.store-card {
-  width: 45%;
-  position: relative;
-  margin: 30px 1% 0 1%;
-  border: 1px solid #c2c2c2;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-}
-.png {
-  position: absolute;
-  right: 10px;
-}
-.store-name {
-  font-weight: bold;
-  font-size: 20px;
-  margin-left: 10px;
-}
-.button {
-  width: 60%;
-  padding: 7px 15px;
-  margin-left: 50%;
-  transform: translate(-50%);
-  margin-bottom: 30px;
-}
-.area,
-.genre {
-  margin: 15px 0 20px 10px;
-  color: gray;
-}
+  .store-card {
+    width: 45%;
+    position: relative;
+    margin: 30px 1% 0 1%;
+    border: 1px solid #c2c2c2;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  }
+  .png {
+    position: absolute;
+    right: 10px;
+  }
+  .store-name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  .button {
+    width: 60%;
+    padding: 7px 15px;
+    margin-left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 30px;
+  }
+  .area,
+  .genre {
+    margin: 15px 0 20px 10px;
+    color: gray;
+  }
 
 /* ====================
       レスポンシブ

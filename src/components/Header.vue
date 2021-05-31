@@ -44,37 +44,37 @@ export default {
 </script>
 
 <style scoped>
-.header {
-  height: 60px;
-  background-color: #ffa500;
-  line-height: 60px;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 999;
-}
-h1 {
-  font-size: 28px;
-  cursor: pointer;
-}
-.nav,
-h1 {
-  color: #fff;
-  margin-left: 20px;
-}
-.nav{
-  position: absolute;
-  right: 0;
-}
-.nav ul li {
-  padding-right: 30px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.menu-content{
-  display: none;
-}
+  .header {
+    height: 60px;
+    background-color: #ffa500;
+    line-height: 60px;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+  }
+  h1 {
+    font-size: 28px;
+    cursor: pointer;
+  }
+  .nav,
+  h1 {
+    color: #fff;
+    margin-left: 20px;
+  }
+  .nav{
+    position: absolute;
+    right: 0;
+  }
+  .nav ul li {
+    padding-right: 30px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .menu-content{
+    display: none;
+  }
 /* ====================
       レスポンシブ
 ==================== */

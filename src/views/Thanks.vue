@@ -8,14 +8,14 @@
 </template>
 
 <style scoped>
-.thanks {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 120px;
-}
-h3 {
-  font-size: 25px;
-  margin-bottom: 15px;
-}
+  .thanks {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 120px;
+  }
+  h3 {
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
 </style>

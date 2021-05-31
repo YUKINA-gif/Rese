@@ -68,60 +68,60 @@ export default {
 /* ====================
       予約更新
 ==================== */
-table {
-  width: 100%;
-  text-align: left;
-}
-th {
-  width: 30%;
-  background: #f8f3e9;
-  padding: 15px 5px;
-  border: 1px solid #fff;
-}
-td {
-  padding-left: 5px;
-}
-#title {
-  font-size: 18px;
-  margin: 10px;
-  font-weight: bold;
-}
-.overlay {
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-window {
-  text-align: center;
-  z-index: 2;
-  width: 40%;
-  padding: 10px;
-  background: #fff;
-  border-top: 8px solid #ffa500;
-}
-.update_button {
-  background-color: rgb(2, 223, 186);
-}
-.number {
-  width: 100%;
-  padding: 8px;
-  font-size: 15px;
-  color: rgb(131, 130, 130);
-  border-radius: 4px;
-}
-.yes_button {
-  margin-right: 50px;
-  padding: 5px 15px;
-  background-color: rgb(204, 6, 6);
-}
-.check_text {
-  margin-bottom: 20px;
-}
+  table {
+    width: 100%;
+    text-align: left;
+  }
+  th {
+    width: 30%;
+    background: #f8f3e9;
+    padding: 15px 5px;
+    border: 1px solid #fff;
+  }
+  td {
+    padding-left: 5px;
+  }
+  #title {
+    font-size: 18px;
+    margin: 10px;
+    font-weight: bold;
+  }
+  .overlay {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-window {
+    text-align: center;
+    z-index: 2;
+    width: 40%;
+    padding: 10px;
+    background: #fff;
+    border-top: 8px solid #ffa500;
+  }
+  .update_button {
+    background-color: rgb(2, 223, 186);
+  }
+  .number {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    color: rgb(131, 130, 130);
+    border-radius: 4px;
+  }
+  .yes_button {
+    margin-right: 50px;
+    padding: 5px 15px;
+    background-color: rgb(204, 6, 6);
+  }
+  .check_text {
+    margin-bottom: 20px;
+  }
 </style>
