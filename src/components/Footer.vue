@@ -21,26 +21,26 @@ export default {
 </script>
 
 <style scoped>
-.footer {
-  width: 60%;
-  margin: 0 auto;
-  border-top: 1px solid #c2c2c2;
-  justify-content: space-between;
-}
-h1 {
-  color: #ffa500;
-  font-size: 25px;
-  margin: 15px 0;
-}
-p {
-  cursor: pointer;
-  font-size: 15px;
-  border: 1px solid #c2c2c2;
-  border-radius: 2px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
-  padding: 5px;
-}
-span {
-  color: red;
-}
+  .footer {
+    width: 60%;
+    margin: 0 auto;
+    border-top: 1px solid #c2c2c2;
+    justify-content: space-between;
+  }
+  h1 {
+    color: #ffa500;
+    font-size: 25px;
+    margin: 15px 0;
+  }
+  p {
+    cursor: pointer;
+    font-size: 15px;
+    border: 1px solid #c2c2c2;
+    border-radius: 2px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+  }
+  span {
+    color: red;
+  }
 </style>
