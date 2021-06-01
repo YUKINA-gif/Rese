@@ -18,8 +18,9 @@
     <nav :class="{ open: menu }" class="menu_content">
       <ul class="hamburger_memu">
         <li><a href="/mypage">マイページ</a></li>
-        <li><a href="/login">ログイン</a></li>
-        <li><a href="/register">新規会員登録</a></li>
+        <li v-if="this.$store.state.auth  == false"><a href="/login">ログイン</a></li>
+        <li v-if="this.$store.state.auth  == false"><a href="/register">新規会員登録</a></li>
+        <li @click="logout" v-else>ログアウト</li>
       </ul>
     </nav>
   </div>

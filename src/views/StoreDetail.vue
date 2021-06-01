@@ -11,6 +11,7 @@
           <p class="area" v-if="store">#{{ store.area.area }}</p>
           <p class="genre" v-if="store">#{{ store.genre.genre }}</p>
         </div>
+        <p class="overview">{{ store.overview }}</p>
       </div>
     <!-- 予約 -->
       <div class="booking">
@@ -27,8 +28,8 @@
                 only-date
                 v-model="date"
                 :no-header="true"
-                min="start"
-                max="end"
+                :min-date="startDate"
+                :max-date="endDate"
                 color="#ffa500"
                 button-color="#ffa500"
                 class="date"
@@ -61,7 +62,6 @@
                 ]"
                 hide-disabled-hours
                 advanced-keyboard
-                manual-input
                 input-width="100%"
                 minute-interval="15"
                 v-model="time"
@@ -88,7 +88,6 @@
     </div>
     <!-- 予約最終確認（モーダルウィンドウ） -->
     <Modal v-if="modal" @close="closeModal" :val="checkItem"></Modal>
-    <p class="overview">{{ store.overview }}</p>
     <button class="button back_button" @click="$router.push('/')">戻る</button>
   </div>
 </template>
@@ -100,11 +99,25 @@ import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import axios from "axios";
 import Modal from "../components/BookingCheck";
+import moment from 'moment';
 export default {
   components: {
     datetime,
     "vue-timepicker": VueTimepicker,
     Modal,
+  },
+  computed:{
+    startDate() {
+      // 明日からの日付を指定
+      const start = moment().add(1, 'days')
+      return start.format('YYYY-MM-DD')
+    },
+    endDate() {
+      // 3ヶ月後までを指定
+      const start = moment(this.start)
+      const end = start.add(3, 'months').endOf('day')
+      return end.format('YYYY-MM-DD')
+    }
   },
   props: ["id"],
   data() {
@@ -164,9 +177,6 @@ export default {
     margin: 30px auto;
   }
   .store_detail {
-    width: 100%;
-  }
-  .detail_image_div {
     width: 90%;
   }
   .detail_image {
@@ -223,18 +233,18 @@ export default {
     font-weight: bold;
   }
   .booking_number {
-    width: 32%;
+    width: 38%;
   }
   .booking_date,
   .booking_time {
-    width: 30%;
+    width: 35%;
   }
   form {
     text-align: left;
   }
   .booking_title {
     font-size: 25px;
-    margin: 30px 0 50px 0;
+    margin: 30px 0 40px 0;
   }
   .booking_button {
     margin-top: 50px;
@@ -262,22 +272,22 @@ export default {
 ==================== */
 @media screen and (max-width: 768px) {
   .detail {
-    width: 90%;
+    width: 55%;
+    margin: 0 auto;
     text-align: center;
+  }
+  .booking{
+    margin: 0;
   }
   .flex {
     flex-wrap: wrap;
   }
   .detail_image_div {
     width: 100%;
+    margin: 0 auto;
   }
   .number {
-    width: 90%;
-  }
-  .booking_number,
-  .booking-date,
-  .booking_time {
-    width: 100%;
+    width: 85%;
   }
   .overview {
     margin: 50px auto;
@@ -285,8 +295,12 @@ export default {
   .tag {
     display: flex;
   }
-  .booking {
-    margin: 30px auto;
+  .overview,
+  .booking_date,
+  .booking_time,
+  .booking_number{
+    width: 100%;
+    margin: 0 auto;
   }
 }
 </style>

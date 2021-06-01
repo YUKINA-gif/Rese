@@ -31,7 +31,10 @@ export default new Vuex.Store({
           email: email,
           password: password,
         }
-      );
+      )
+        .catch(() => {
+        alert("ログインできませんでした。お手数ですが再度お試しください")
+      })
       const responseUser = await axios.get("https://rese-booking.herokuapp.com/api/user", {
         params: {
           email: email,

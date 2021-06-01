@@ -36,15 +36,13 @@
         <button
           class="button"
           id="booking_update_button"
-          @click="openModal(booking)"
-        >
+          @click="openModal(booking)">
           予約内容の変更
-        </button>
+        </button><br>
         <button
           class="button"
           id="booking_delete_button"
-          @click="openModalDel(booking)"
-        >
+          @click="openModalDel(booking)">
           予約取消
         </button>
       </div>
@@ -75,7 +73,7 @@
           <p class="genre">#{{ store.store.genre.genre }}</p>
         </div>
         <button
-          class="button"
+          class="button store_detail_button"
           @click="
             $router.push({
               path: '/detail/' + store.store_id,
@@ -271,7 +269,7 @@ export default {
     お気に入り店舗
 ==================== */
   .store_card {
-    width: 45%;
+    width: 30%;
     position: relative;
     margin: 30px 1% 0 1%;
     border: 1px solid #c2c2c2;
@@ -287,7 +285,7 @@ export default {
     font-size: 20px;
     margin-top: 10px;
   }
-  .button {
+  .store_detail_button {
     width: 60%;
     padding: 7px 15px;
     margin-left: 50%;
@@ -307,11 +305,35 @@ export default {
   .mypage {
     width: 90%;
   }
-  .mybooking,
-  #booking_update_button,
-  #booking_delete_button,
-  .store_card {
+  .booking{
+    flex-wrap: wrap;
+  }
+  .booking_button{
+    display: flex;
     width: 100%;
+  }
+  .store_image,
+  .mybooking
+  {
+    width: 100%;
+  }
+  .store_card{
+    width: 47%;
+  }
+  th{
+    padding: 20px 5px;
+    width: 30%;
+  }
+  td{
+    width: 70%;
+  }
+  #booking_update_button,
+  #booking_delete_button{
+    width: 40%;
+    margin: 10px auto;
+  }
+  #booking_delete_button{
+    margin-left: 20px;
   }
 }
 </style>

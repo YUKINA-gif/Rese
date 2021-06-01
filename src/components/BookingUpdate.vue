@@ -18,8 +18,8 @@
                 only-date
                 v-model="val.booking_date"
                 :no-header="true"
-                min="start"
-                max="end"
+                :min-date="startDate"
+                :max-date="endDate"
                 color="#ffa500"
                 button-color="#ffa500"
                 class="date"
@@ -87,6 +87,7 @@ import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import axios from "axios";
+import moment from 'moment';
 export default {
   props: ["val"],
   data() {
@@ -95,6 +96,19 @@ export default {
   components: {
     datetime,
     "vue-timepicker": VueTimepicker,
+  },
+  computed:{
+    startDate() {
+      // 明日からの日付を指定
+      const start = moment().add(1, 'days')
+      return start.format('YYYY-MM-DD')
+    },
+    endDate() {
+      // 3ヶ月後までを指定
+      const start = moment(this.start)
+      const end = start.add(3, 'months').endOf('day')
+      return end.format('YYYY-MM-DD')
+    }
   },
   methods: {
     booking_update() {
@@ -111,7 +125,10 @@ export default {
           console.log(response);
           alert("予約内容を更新しました");
           this.$emit("close");
-        });
+        })
+        .catch(() => {
+          alert("予約内容の更新ができませんでした。お手数ですが再度お試しください")
+        })
     },
   },
 };

@@ -9,7 +9,7 @@
     <div class="search">
       <!-- 店舗検索 -->
       <h2>店舗検索</h2>
-      <div class="flex">
+      <div class="flex seach_flex">
         <select name="エリア" v-model="seachArea">
           <option value="" hidden class="pull_down">エリア </option>
           <option
@@ -42,7 +42,7 @@
       <h2 id="store_title">店舗一覧</h2>
       <p v-if="seachResult">検索店舗はありません</p>
       <div class="flex wrap store_flex" v-else>
-        <div class="store_card" v-for="(store, index) in getItems" :key="index">
+        <div class="store_card" v-for="(store, index) in stores" :key="index">
           <img :src="store.image" alt="" class="store_image image" />
           <div>
             <div class="flex store_heart">
@@ -76,15 +76,6 @@
         </div>
       </div>
     </div>
-    <!-- ページネーション -->
-    <paginate
-      class="flex pagination"
-      :page-count="getPage"
-      :prev-text="'<'"
-      :next-text="'>'"
-      :click-handler="paginateClickCallback"
-      :container-class="'page_ui'"
-    ></paginate>
     <!-- フッター -->
     <Footer />
   </div>
@@ -92,12 +83,10 @@
 
 <script>
 import Footer from "../components/Footer";
-import paginate from "vuejs-paginate";
 import axios from "axios";
 export default {
   components: {
     Footer,
-    paginate,
   },
   data() {
     return {
@@ -112,18 +101,6 @@ export default {
       heart: "",
       seachResult: false
     };
-  },
-  // ページネーション設定
-  computed: {
-    getItems() {
-      let start = (this.currentPage - 1) * this.parPage;
-      let end = this.currentPage * this.parPage;
-
-      return this.stores.slice(start, end);
-    },
-    getPage: function() {
-      return Math.ceil(this.stores.length / this.parPage);
-    },
   },
   methods: {
     paginateClickCallback: function(pageNum) {
@@ -164,7 +141,7 @@ export default {
     },
     // ユーザーお気に入り情報取得してハートに反映
     checkFavorite(index) {
-      if (this.stores[index].favorites == 0) {
+      if (this.stores[index].favorites.length === 0 || this.$store.state.auth == false) {
         return false;
       } else {
         return true;
@@ -203,7 +180,7 @@ export default {
 
 <style scoped>
 /* ====================
-    メイン画像
+      メイン画像
 ==================== */
   .main_image {
     height: 580px;
@@ -257,9 +234,9 @@ export default {
     line-height: 2;
   }
   .store_card {
-    width: 22.5%;
+    width: 19%;
     position: relative;
-    margin: 30px 1% 0 1%;
+    margin: 30px 5px 0 5px;
     border: 1px solid #c2c2c2;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
   }
@@ -282,7 +259,7 @@ export default {
     font-size: 15px;
   }
   p {
-    margin: 15px 0 20px 10px;
+    margin: 0 0 10px 10px;
     color: gray;
   }
   span {
@@ -302,26 +279,31 @@ export default {
 ==================== */
 @media screen and (max-width: 768px) {
   .store_card {
-    width: 100%;
+    width: 48%;
     margin: 20px auto;
   }
   .store_button {
     width: 80%;
+  }
+  .seach_flex{
+    flex-wrap: wrap;
   }
   .search {
     width: 70%;
     text-align: center;
   }
   select {
-    width: 80%;
+    width: 100%;
     margin-bottom: 10px;
   }
   input {
-    width: 75%;
+    width: 100%;
     margin-bottom: 10px;
   }
-  .seach_button {
-    width: 25%;
+  .seach_button,.delete_seach{
+    height: 40px;
+    width: 40%;
+    margin: 0 auto;
   }
 }
 </style>

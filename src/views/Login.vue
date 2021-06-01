@@ -12,6 +12,8 @@
               placeholder="メールアドレスを入力してください"
               v-model="email"
             />
+            <div class="error" v-if="email_required">メールアドレスが入力されていません</div>
+            <div class="error" v-if="not_email">メールアドレスで入力してください</div>
           </li>
           <li>
             <label for="password">パスワード:</label>
@@ -21,6 +23,7 @@
               placeholder="パスワードを入力してください"
               v-model="password"
             />
+            <div class="error" v-if="password_required">パスワードが入力されていません</div>
           </li>
         </ul>
         <button @click="login" type="button" class="button">ログイン</button
@@ -37,15 +40,28 @@ export default {
     return {
       email: "",
       password: "",
+      email_required:false,
+      not_email:false,
+      password_required:false,
     };
   },
   methods: {
     // ログイン
     login() {
+      // バリデーション
+
+      if (this.email == ""){
+        this.email_required = true
+      } if (this.password == ""){
+        this.password_required = true
+      } if (!this.email.includes("@")){
+        this.not_email = true
+      }else {
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password,
       });
+      }
     },
   },
 };
@@ -85,6 +101,10 @@ export default {
   .button {
     padding: 10px 15px;
   }
+  .error{
+    color: red;
+    margin-left: 30%;
+  }
 /* ====================
       レスポンシブ
 ==================== */
@@ -95,6 +115,9 @@ export default {
   label,
   input {
     width: 90%;
+  }
+  .error{
+    margin: 0;
   }
 }
 </style>
