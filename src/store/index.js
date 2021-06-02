@@ -31,17 +31,19 @@ export default new Vuex.Store({
           email: email,
           password: password,
         }
-      )
-        .catch(() => {
-        alert("ログインできませんでした。お手数ですが再度お試しください")
+      ).catch(() => {
+        alert("ログインできませんでした")
       })
-      const responseUser = await axios.get("https://rese-booking.herokuapp.com/api/user", {
-        params: {
-          email: email,
-        },
-      });
+      const responseUser = await axios.get(
+        "https://rese-booking.herokuapp.com/api/user",
+        {
+          params: {
+            email: email,
+          },
+        }
+      );
       commit("auth", responseLogin.data.auth);
-      commit("user", responseUser.data.user[0]);
+      commit("user", responseUser.data.user);
       router.replace("/");
     },
     logout({ commit }) {

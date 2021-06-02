@@ -252,6 +252,7 @@ export default {
     color: #fff;
     font-weight: bold;
     margin-bottom: 10px;
+    width: 80%;
   }
   #booking_delete_button {
     background-color: rgb(204, 6, 6);

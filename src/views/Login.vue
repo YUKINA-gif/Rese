@@ -56,7 +56,7 @@ export default {
         this.password_required = true
       } if (!this.email.includes("@")){
         this.not_email = true
-      }else {
+      } else {
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password,
