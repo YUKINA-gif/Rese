@@ -75,7 +75,7 @@ export default {
         this.password_min_length = true
       } if (!this.email.includes("@")){
         this.not_email = true
-      }else {
+      } else {
       axios
         .post("https://rese-booking.herokuapp.com/api/user", {
           name: this.name,
