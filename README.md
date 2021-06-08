@@ -133,7 +133,7 @@ http://localhost:8080/
 
 ### 店舗検索(トップページ)
 
-<img src="./src/assets/スクリーンショット (15).png" width=70%>
+<img src="./src/assets/スクリーンショット (15).png">
 
 エリア、ジャンルを選択して店舗検索ができます。
 店名を一部入力して検索することも可能です。
@@ -147,7 +147,7 @@ http://localhost:8080/
 "クリア"をクリックすると再度店舗一覧を表示します。
 
 ### 店舗一覧
-<img src="./src/assets/スクリーンショット (13).png" width=70%>
+<img src="./src/assets/スクリーンショット (13).png">
 
 店舗一覧をみることができます。
 
@@ -161,7 +161,7 @@ http://localhost:8080/
 
 会員登録ができます。
 
-<img src="./src/assets/スクリーンショット (18).png" width=70%>
+<img src="./src/assets/スクリーンショット (18).png">
 
 #### URL:
 http://localhost:8080/register
@@ -180,7 +180,7 @@ http://localhost:8080/register
 
 ログインができます。
 
-<img src="./src/assets/スクリーンショット (16).png" width=70%>
+<img src="./src/assets/スクリーンショット (16).png">
 
 #### URL:
 http://localhost:8080/login
@@ -199,7 +199,7 @@ http://localhost:8080/login
 
 店舗の詳細をみることができ、予約もできます。
 
-<img src="./src/assets/スクリーンショット (14).png" width=70%>
+<img src="./src/assets/スクリーンショット (14).png">
 
 #### URL:
 http://localhost:8080/detail/1
@@ -218,7 +218,7 @@ http://localhost:8080/detail/1
 
 また予約内容の変更、取消も可能です。
 
-<img src="./src/assets/スクリーンショット (17).png" width=70%>
+<img src="./src/assets/スクリーンショット (17).png">
 
 #### URL:
 http://localhost:8080/mypage
