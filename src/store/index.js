@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     auth: "",
     user: "",
+    manage: "",
   },
   mutations: {
     auth(state, payload) {
@@ -22,18 +23,20 @@ export default new Vuex.Store({
     logout(state, payload) {
       state.auth = payload;
     },
+    manage(state, payload) {
+      state.auth = payload;
+    },
   },
   actions: {
     async login({ commit }, { email, password }) {
-      const responseLogin = await axios.post(
-        "https://rese-booking.herokuapp.com/api/login",
-        {
+      const responseLogin = await axios
+        .post("https://rese-booking.herokuapp.com/api/login", {
           email: email,
           password: password,
-        }
-      ).catch(() => {
-        alert("ログインできませんでした")
-      })
+        })
+        .catch(() => {
+          alert("ログインできませんでした");
+        });
       const responseUser = await axios.get(
         "https://rese-booking.herokuapp.com/api/user",
         {
@@ -59,6 +62,27 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error);
         });
+    },
+    async manager_login({ commit }, { id, password }) {
+      const responseLogin = await axios
+        .post("https://rese-booking.herokuapp.com/api/login", {
+          id: id,
+          password: password,
+        })
+        .catch(() => {
+          alert("ログインできませんでした");
+        });
+      const responseManager = await axios.get(
+        "https://rese-booking.herokuapp.com/api/user",
+        {
+          params: {
+            id: id,
+          },
+        }
+      );
+      commit("manage", responseLogin.data.manage);
+      commit("manager", responseManager.data.manager);
+      router.replace("/");
     },
   },
 });

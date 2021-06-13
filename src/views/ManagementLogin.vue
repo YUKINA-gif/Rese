@@ -1,19 +1,19 @@
 <template>
-  <div class="login">
-    <h2>ログイン</h2>
+  <div class="management_login">
+    <h2>管理者ログイン</h2>
     <div class="login_card">
       <form action="">
         <ul>
           <li>
-            <label for="email">メールアドレス:</label>
+            <label for="id">ID:</label>
             <input
-              type="email"
-              id="email"
-              placeholder="メールアドレスを入力してください"
-              v-model="email"
+              type=""
+              id="id"
+              placeholder="IDを入力してください"
+              v-model="id"
             />
-            <div class="error" v-if="email_required">メールアドレスが入力されていません</div>
-            <div class="error" v-if="not_email">メールアドレスで入力してください</div>
+            <div class="error" v-if="id_required">IDが入力されていません</div>
+            <div class="error" v-if="not_email">既定のIDで入力してください</div>
           </li>
           <li>
             <label for="password">パスワード:</label>
@@ -26,49 +26,29 @@
             <div class="error" v-if="password_required">パスワードが入力されていません</div>
           </li>
         </ul>
-        <button @click="login" type="button" class="button">ログイン</button
-        ><br />
-        <a href="/register">会員でない方はこちら</a>
+        <button @click="manage_login" type="button" class="button">ログイン</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      email: "",
-      password: "",
-      email_required:false,
-      not_email:false,
-      password_required:false,
-    };
+      id :"",
+      password: ""
+    }
   },
   methods: {
-    // ログイン
-    login() {
-      // バリデーション
-
-      if (this.email == ""){
-        this.email_required = true
-      } if (this.password == ""){
-        this.password_required = true
-      } if (!this.email.includes("@")){
-        this.not_email = true
-      } else {
-      this.$store.dispatch("login", {
-        email: this.email,
-        password: this.password,
-      });
-      }
-    },
+    
   },
-};
+}
 </script>
 
 <style scoped>
-  .login {
+  .management_login {
     width: 60%;
     margin: 0 auto;
     text-align: center;

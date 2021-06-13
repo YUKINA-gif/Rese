@@ -1,28 +1,35 @@
 <template>
-  <div class="header flex">
-    <h1 @click="$router.push('/')">Rese</h1>
-    <nav class="nav">
-      <ul class="flex">
-        <li @click="$router.push('/mypage')">マイページ</li>
-        <li @click="$router.push('/login')" v-if="this.$store.state.auth  == false">ログイン</li>
-        <li @click="$router.push('/register')" v-if="this.$store.state.auth  == false">新規会員登録</li>
-        <li @click="logout" v-else>ログアウト</li>
-      </ul>
-    </nav>
-    <div class="hamburger" @click="hamburger()" :class="{ active: menu }">
-      <span></span>
-      <span></span>
-      <span></span>
+  <div :class="header" class="header flex">
+    <div class="flex">
+      <h1><a href="/">Rese</a></h1>
+      <div v-if="management" class="management">
+        <p class="managementtitle">店舗管理画面</p>
+      </div>
     </div>
+    <div v-if="managementnav">
+      <nav class="nav">
+        <ul class="flex">
+          <li @click="$router.push('/mypage')">マイページ</li>
+          <li @click="$router.push('/login')" v-if="this.$store.state.auth  == false">ログイン</li>
+          <li @click="$router.push('/register')" v-if="this.$store.state.auth  == false">新規会員登録</li>
+          <li @click="logout" v-else>ログアウト</li>
+        </ul>
+      </nav>
+      <div class="hamburger" @click="hamburger()" :class="{ active: menu }">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-    <nav :class="{ open: menu }" class="menu_content">
-      <ul class="hamburger_memu">
-        <li><a href="/mypage">マイページ</a></li>
-        <li v-if="this.$store.state.auth  == false"><a href="/login">ログイン</a></li>
-        <li v-if="this.$store.state.auth  == false"><a href="/register">新規会員登録</a></li>
-        <li @click="logout" v-else>ログアウト</li>
-      </ul>
-    </nav>
+      <nav :class="{ open: menu }" class="menu_content">
+        <ul class="hamburger_memu">
+          <li><a href="/mypage">マイページ</a></li>
+          <li v-if="this.$store.state.auth  == false"><a href="/login">ログイン</a></li>
+          <li v-if="this.$store.state.auth  == false"><a href="/register">新規会員登録</a></li>
+          <li @click="logout" v-else>ログアウト</li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -31,6 +38,9 @@ export default {
   data() {
     return {
       menu: false,
+      management: false,
+      managementnav: true,
+      header: "default"
     };
   },
   methods: {
@@ -39,7 +49,24 @@ export default {
     },
     logout(){
       this.$store.dispatch("logout");
+    },
+    manage(){
+    // 管理者画面の時はヘッダーを変える
+      if (this.$route.name == "ManagementLogin" || 
+          this.$route.name == "StoreModifiction" || 
+          this.$route.name == "StoreSetting" || 
+          this.$route.name == "StoreUpdate" || 
+          this.$route.name == "StoreModification" || 
+          this.$route.name == "BookingState" || 
+          this.$route.name == "ManageSetting" ) {
+          this.management = true
+          this.managementnav = false
+          this.header = "custom"
+      }
     }
+  },
+  created() {
+    this.manage()
   },
 };
 </script>
@@ -47,13 +74,25 @@ export default {
 <style scoped>
   .header {
     height: 60px;
-    background-color: #ffa500;
     line-height: 60px;
     justify-content: space-between;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 999;
+  }
+  .header a{
+    text-decoration: none;
+    color: #fff;
+  }
+  .default{
+    background-color: #ffa500;
+  }
+  .custom{
+    background-color: #fff;
+  }
+  .custom a{
+    color: #ffa500;
   }
   h1 {
     font-size: 28px;
@@ -75,6 +114,11 @@ export default {
   }
   .menu_content{
     display: none;
+  }
+  .management{
+    margin-left: 20px;
+    font-weight: bolder;
+    padding: 0 10px;
   }
 /* ====================
       レスポンシブ

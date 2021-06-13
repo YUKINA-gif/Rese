@@ -1,13 +1,13 @@
 <template>
   <div id="main">
-    <!-- メイン画像 -->
+<!-- メイン画像 -->
     <img
       src="../assets/italian.jpg"
       alt="main_image"
       class="image main_image"
     />
     <div class="search">
-      <!-- 店舗検索 -->
+<!-- 店舗検索 -->
       <h2>店舗検索</h2>
       <div class="flex seach_flex">
         <select name="エリア" v-model="seachArea">
@@ -16,8 +16,8 @@
             v-for="(area, index) in areas"
             :key="index"
             :value="area.id"
-            >{{ area.area }}</option
-          >
+          >{{ area.area }}
+          </option>
         </select>
 
         <select name="ジャンル" v-model="seachGenre">
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <!-- 店舗一覧 -->
+<!-- 店舗一覧 -->
     <div class="stores_container">
       <h2 id="store_title">店舗一覧</h2>
       <p v-if="seachResult">検索店舗はありません</p>
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-    <!-- フッター -->
+<!-- フッター -->
     <Footer />
   </div>
 </template>
@@ -93,8 +93,6 @@ export default {
       stores: [],
       areas: [],
       genres: [],
-      currentPage: 1,
-      parPage: 12,
       seachArea: "",
       seachGenre: "",
       seachStoreName: "",
@@ -103,9 +101,6 @@ export default {
     };
   },
   methods: {
-    paginateClickCallback: function(pageNum) {
-      this.currentPage = Number(pageNum);
-    },
     // 店舗一覧
     getStores() {
       axios
