@@ -106,15 +106,17 @@ $ yarn --version
 リポジトリを取得します。
 
 CLI を開きます。
-リポジトリをコピーします。
+任意の場所にリポジトリをコピーします。
 
 ```
 $ git clone https://github.com/YUKINA-gif/Rese.git
 ```
 
-npm パッケージをインストールし、脆弱性の修正をします。
+ディレクトリに移動し、npm パッケージをインストールし、脆弱性の修正をします。
 
 ```
+$ cd Rese
+
 $ npm install
 
 $ npm audit fix
