@@ -36,9 +36,6 @@
             <div class="error" v-if="password_required">パスワードが入力されていません</div>
             <div class="error" v-if="password_min_length">8文字以上で入力してください</div>
           </li>
-          <ul>
-            <li @click="google">google</li>
-          </ul>
         </ul>
         <button @click="register" type="button" class="button">
           新規会員登録

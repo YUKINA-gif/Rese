@@ -8,11 +8,7 @@ import Thanks from "../views/Thanks.vue";
 import Done from "../views/Done.vue";
 import StoreDetail from "../views/StoreDetail.vue";
 import store from "../store/index";
-import ManagementLogin from "../views/ManagementLogin.vue";
-import StoreModification from "../views/StoreModification.vue";
-import StoreSetting from "../views/StoreSetting.vue";
-import BookingState from "../views/BookingState.vue";
-import ManageSetting from "../views/ManageSetting.vue";
+import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -60,33 +56,9 @@ const routes = [
     props: true,
   },
   {
-    path: "/management/login",
-    name: "ManagementLogin",
-    component: ManagementLogin,
-  },
-  {
-    path: "/store/modification",
-    name: "StoreModification",
-    component: StoreModification,
-    props: true,
-  },
-  {
-    path: "/store/setting",
-    name: "StoreSetting",
-    component: StoreSetting,
-    props: true,
-  },
-  {
-    path: "/booking/state",
-    name: "BookingState",
-    component: BookingState,
-    props: true,
-  },
-  {
-    path: "/manage/setting",
-    name: "ManageSetting",
-    component: ManageSetting,
-    props: true,
+    path: "*",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 

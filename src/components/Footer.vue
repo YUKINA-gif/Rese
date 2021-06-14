@@ -2,7 +2,6 @@
   <div class="footer flex">
     <div class="flex">
       <h1>Rese</h1>
-      <a class="management" href="/management/login">店舗管理画面</a>
     </div>
     <div class="page_back">
       <p @click="scrollTop"><span>▲</span>ページ上部へ戻る</p>
