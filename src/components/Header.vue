@@ -1,12 +1,7 @@
 <template>
   <div :class="header" class="header flex">
-    <div class="flex">
-      <h1><a href="/">Rese</a></h1>
-      <div v-if="management" class="management">
-        <p class="managementtitle">店舗管理画面</p>
-      </div>
-    </div>
-    <div v-if="managementnav">
+    <h1 @click="$router.push('/')">Rese</h1>
+    <div>
       <nav class="nav">
         <ul class="flex">
           <li @click="$router.push('/mypage')">マイページ</li>
@@ -38,8 +33,6 @@ export default {
   data() {
     return {
       menu: false,
-      management: false,
-      managementnav: true,
       header: "default"
     };
   },
@@ -50,23 +43,6 @@ export default {
     logout(){
       this.$store.dispatch("logout");
     },
-    manage(){
-    // 管理者画面の時はヘッダーを変える
-      if (this.$route.name == "ManagementLogin" || 
-          this.$route.name == "StoreModifiction" || 
-          this.$route.name == "StoreSetting" || 
-          this.$route.name == "StoreUpdate" || 
-          this.$route.name == "StoreModification" || 
-          this.$route.name == "BookingState" || 
-          this.$route.name == "ManageSetting" ) {
-          this.management = true
-          this.managementnav = false
-          this.header = "custom"
-      }
-    }
-  },
-  created() {
-    this.manage()
   },
 };
 </script>
@@ -80,16 +56,7 @@ export default {
     top: 0;
     width: 100%;
     z-index: 999;
-  }
-  .header a{
-    text-decoration: none;
-    color: #fff;
-  }
-  .default{
     background-color: #ffa500;
-  }
-  .custom{
-    background-color: #fff;
   }
   .custom a{
     color: #ffa500;
@@ -114,11 +81,6 @@ export default {
   }
   .menu_content{
     display: none;
-  }
-  .management{
-    margin-left: 20px;
-    font-weight: bolder;
-    padding: 0 10px;
   }
 /* ====================
       レスポンシブ

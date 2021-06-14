@@ -133,6 +133,7 @@ export default {
     cursor: pointer;
     padding: 5px 10px;
     font-size: 15px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
   }
   .image{
     width: 100%;
