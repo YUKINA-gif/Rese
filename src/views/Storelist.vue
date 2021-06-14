@@ -12,6 +12,7 @@
       <div class="flex seach_flex">
         <select name="エリア" v-model="seachArea">
           <option value="" hidden class="pull_down">エリア </option>
+          <option value="0">すべて</option>
           <option
             v-for="(area, index) in areas"
             :key="index"
@@ -22,6 +23,7 @@
 
         <select name="ジャンル" v-model="seachGenre">
           <option value="" hidden class="pull_down">ジャンル</option>
+          <option value="0">すべて</option>
           <option
             v-for="(genre, index) in genres"
             :key="index"
@@ -33,7 +35,6 @@
         <button type="submit" class="button seach_button" @click="storeSeach">
           検索
         </button>
-        <button class="button delete_seach" @click="clear">クリア</button>
       </div>
     </div>
 
