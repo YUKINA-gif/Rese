@@ -3,7 +3,7 @@
 Rese(飲食店予約サービス)のご利用方法です。
 
 ## ページ一覧
-<img src="./src/assets/スクリーンショット (15).png">
+<img src="./src/assets/スクリーンショット (20).png">
 <img src="./src/assets/スクリーンショット (13).png">
 <img src="./src/assets/スクリーンショット (18).png">
 <img src="./src/assets/スクリーンショット (16).png">
