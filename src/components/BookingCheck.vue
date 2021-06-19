@@ -24,7 +24,16 @@
           </tr>
         </table>
 
-        <button class="button" @click="booking">予約</button>
+        <button class="button" @click="booking">
+          <p v-if="loading">予約</p>
+          <vue-loading
+            type="barsCylon"
+            color="#fff"
+            :size="{ width: '60px', height: '60px' }"
+            v-else
+            class="loading"
+          ></vue-loading>
+        </button>
       </div>
     </div>
   </transition>
@@ -32,14 +41,21 @@
 
 <script>
 import axios from "axios";
+import { VueLoading } from "vue-loading-template";
 export default {
   props: ["val"],
   data() {
-    return {};
+    return {
+      loading: true
+    };
+  },
+  components:{
+    VueLoading
   },
   methods: {
     booking() {
       if (this.$store.state.auth == true) {
+          this.loading = false;
         axios
           .post("https://rese-booking.herokuapp.com/api/booking", {
             user_id: this.$store.state.user.id,
@@ -51,10 +67,12 @@ export default {
           .then((response) => {
             console.log(response);
             this.$router.replace("/done");
+            this.loading = true;
           })
           .catch((response) => {
             console.log(response);
             alert("予約できませんでした。お手数ですが、再度お試しください");
+            this.loading = true;
           });
       } else {
         this.$router.replace("/login");
@@ -106,8 +124,9 @@ export default {
     background: #fff;
     border-top: 8px solid #ffa500;
   }
-  .update_button {
-    background-color: rgb(2, 223, 186);
+  .button{
+    width: 80px;
+    height: 40px;
   }
   .number {
     width: 100%;
@@ -116,12 +135,11 @@ export default {
     color: rgb(131, 130, 130);
     border-radius: 4px;
   }
-  .yes_button {
-    margin-right: 50px;
-    padding: 5px 15px;
-    background-color: rgb(204, 6, 6);
-  }
   .check_text {
     margin-bottom: 20px;
+  }
+  .loading{
+    margin-left: 4px;
+    padding-top: 2px;
   }
 </style>

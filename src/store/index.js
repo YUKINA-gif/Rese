@@ -11,7 +11,6 @@ export default new Vuex.Store({
   state: {
     auth: "",
     user: "",
-    manage: "",
   },
   mutations: {
     auth(state, payload) {
@@ -21,9 +20,6 @@ export default new Vuex.Store({
       state.user = payload;
     },
     logout(state, payload) {
-      state.auth = payload;
-    },
-    manage(state, payload) {
       state.auth = payload;
     },
   },
@@ -62,27 +58,6 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error);
         });
-    },
-    async manager_login({ commit }, { id, password }) {
-      const responseLogin = await axios
-        .post("https://rese-booking.herokuapp.com/api/login", {
-          id: id,
-          password: password,
-        })
-        .catch(() => {
-          alert("ログインできませんでした");
-        });
-      const responseManager = await axios.get(
-        "https://rese-booking.herokuapp.com/api/user",
-        {
-          params: {
-            id: id,
-          },
-        }
-      );
-      commit("manage", responseLogin.data.manage);
-      commit("manager", responseManager.data.manager);
-      router.replace("/");
-    },
+    }
   },
 });

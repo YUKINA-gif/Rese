@@ -12,7 +12,7 @@
       class="booking flex"
       v-else
     >
-      <img :src="booking.store.image" class="image store_image" />
+      <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + booking.store.image" class="image store_image" />
       <table class="mybooking">
         <tr>
           <th>店名:</th>
@@ -24,7 +24,7 @@
         </tr>
         <tr>
           <th>予約時間:</th>
-          <td>{{ booking.booking_time }}</td>
+          <td>{{ booking.booking_time.substr(0,5) }}</td>
         </tr>
         <tr>
           <th>予約人数:</th>
@@ -61,7 +61,7 @@
     <p v-if="haveFavorite">お気に入り店舗はありません</p>
     <div class="flex wrap store_flex" v-else>
       <div class="store_card" v-for="(store, index) in favorites" :key="index">
-        <img :src="store.store.image" alt="" class="image" />
+        <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + store.store.image" alt="" class="image" />
       <div class="flex">
         <span class="store_name">{{ store.store.name }}</span>
         <div @click="favorite(store)">
@@ -78,9 +78,7 @@
             $router.push({
               path: '/detail/' + store.store_id,
               params: { id: store.id },
-            })
-          "
-        >
+            })">
           店舗詳細・予約
         </button>
       </div>

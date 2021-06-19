@@ -5,10 +5,16 @@
         <p id="title">予約取消</p>
         <p class="check_text">本当にこの予約を取消しますか?</p>
 
-        <button class="button yes_button" @click="booking_delete">はい</button>
-        <button class="button" @click.self="$emit('close')">
+        <button class="button yes_button" @click="booking_delete" v-if="loading">はい</button>
+        <button class="button" @click.self="$emit('close')" v-if="loading">
           いいえ
         </button>
+        <vue-loading
+          type="barsCylon"
+          color="#ffa500"
+          v-else
+          class="loading"
+    ></vue-loading>
       </div>
     </div>
   </transition>
@@ -16,13 +22,20 @@
 
 <script>
 import axios from "axios";
+import { VueLoading } from "vue-loading-template";
 export default {
   props: ["val"],
   data() {
-    return {};
+    return {
+      loading: true
+    };
+  },
+  components:{
+    VueLoading
   },
   methods: {
     booking_delete() {
+      this.loading = false;
       axios
         .request({
           method: "delete",
@@ -36,9 +49,11 @@ export default {
           console.log(response);
           alert("予約内容を取消しました");
           this.$emit("close");
+          this.loading = true;
         })
         .catch((error) => {
           console.log(error.config);
+          this.loading = true;
         });
     },
   },

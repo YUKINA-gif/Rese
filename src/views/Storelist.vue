@@ -43,8 +43,15 @@
       <h2 id="store_title">店舗一覧</h2>
       <p v-if="seachResult">検索店舗はありません</p>
       <div class="flex wrap store_flex" v-else>
-        <div class="store_card" v-for="(store, index) in stores" :key="index">
-          <img :src="store.image" alt="" class="store_image image" />
+        <vue-loading
+          type="spin"
+          color="#ffa500"
+          :size="{ width: '60px', height: '60px' }"
+          v-if="loading"
+          class="loading"
+        ></vue-loading>
+        <div class="store_card" v-for="(store, index) in stores" :key="index" v-else>
+          <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + store.image" alt="" class="store_image image" />
           <div>
             <div class="flex store_heart">
               <span class="store_name">{{ store.name }}</span>
@@ -68,9 +75,7 @@
                 $router.push({
                   path: '/detail/' + store.id,
                   params: { id: store.id },
-                })
-              "
-            >
+                })">
               店舗詳細・予約
             </button>
           </div>
@@ -85,9 +90,11 @@
 <script>
 import Footer from "../components/Footer";
 import axios from "axios";
+import { VueLoading } from "vue-loading-template";
 export default {
   components: {
     Footer,
+    VueLoading
   },
   data() {
     return {
@@ -98,12 +105,14 @@ export default {
       seachGenre: "",
       seachStoreName: "",
       heart: "",
-      seachResult: false
+      seachResult: false,
+      loading: false,
     };
   },
   methods: {
     // 店舗一覧
     getStores() {
+      this.loading = true;
       axios
         .get(
           "https://rese-booking.herokuapp.com/api/stores/" +
@@ -113,7 +122,11 @@ export default {
           this.stores = response.data.item.store;
           this.areas = response.data.item.area;
           this.genres = response.data.item.genre;
-        });
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        })
     },
     // お気に入り店舗登録もしくは削除
     favorite(store) {
@@ -145,6 +158,7 @@ export default {
     },
     // 店舗検索
     storeSeach() {
+      this.loading = true;
       axios
         .get("https://rese-booking.herokuapp.com/api/storesSeach/" + this.$store.state.user.id, {
           params: {
@@ -156,9 +170,11 @@ export default {
         .then((response) => {
             this.stores = response.data.store;
             this.seachResult = false;
+            this.loading = false;
           })
         .catch(() => {
             this.seachResult = true;
+            this.loading = false;
         })
     },
     clear() {

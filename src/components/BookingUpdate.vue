@@ -5,18 +5,25 @@
         <p id="title">予約更新</p>
         <table>
           <tr>
+            <th></th>
+            <th>変更前</th>
+            <th class="th_2">変更後</th>
+          </tr>
+          <tr>
             <th>店名</th>
+            <td>{{ val.store.name }}</td>
             <td>{{ val.store.name }}</td>
           </tr>
           <tr>
             <th>予約日</th>
+            <td>{{ val.booking_date }}</td>
             <td>
               <datetime
                 label="日付を選択してください"
                 format="YYYY-MM-DD"
                 formatted="MM月DD日"
                 only-date
-                v-model="val.booking_date"
+                v-model="booking_date"
                 :no-header="true"
                 :min-date="startDate"
                 :max-date="endDate"
@@ -28,6 +35,7 @@
           </tr>
           <tr>
             <th>予約時間</th>
+            <td>{{ val.booking_time.substr(0,5) }}</td>
             <td class="time-color">
               <vue-timepicker
                 placeholder="時間を選択してください"
@@ -54,18 +62,19 @@
                 manual-input
                 input-width="100%"
                 minute-interval="15"
-                v-model="val.booking_time"
+                v-model="booking_time"
                 class="time"
               ></vue-timepicker>
             </td>
           </tr>
           <tr>
             <th>予約人数</th>
+            <td>{{ val.booking_number }}</td>
             <td>
               <select
                 type="number"
                 name="i"
-                v-model="val.booking_number"
+                v-model="booking_number"
                 class="number"
               >
                 <option value="">人数を選択してください</option>
@@ -75,7 +84,14 @@
           </tr>
         </table>
 
-        <button class="button" @click="booking_update">予約更新</button>
+        <button class="button" @click="booking_update"><p v-if="loading">予約更新</p>
+          <vue-loading
+            type="barsCylon"
+            color="#fff"
+            :size="{ width: '60px', height: '60px' }"
+            v-else
+            class="loading"
+          ></vue-loading></button>
       </div>
     </div>
   </transition>
@@ -88,14 +104,21 @@ import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import axios from "axios";
 import moment from 'moment';
+import { VueLoading } from "vue-loading-template";
 export default {
   props: ["val"],
   data() {
-    return {};
+    return {
+      loading: true,
+      booking_date: "",
+      booking_time: "",
+      booking_number: "",
+    };
   },
   components: {
     datetime,
     "vue-timepicker": VueTimepicker,
+    VueLoading
   },
   computed:{
     startDate() {
@@ -112,22 +135,25 @@ export default {
   },
   methods: {
     booking_update() {
+      this.loading = false;
       axios
         .put("https://rese-booking.herokuapp.com/api/booking", {
           id: this.val.id,
           user_id: this.$store.state.user.id,
           store_id: this.val.store_id,
-          booking_date: this.val.booking_date,
-          booking_time: this.val.booking_time,
-          booking_number: this.val.booking_number,
+          booking_date: this.booking_date,
+          booking_time: this.booking_time,
+          booking_number: this.booking_number,
         })
         .then((response) => {
           console.log(response);
           alert("予約内容を更新しました");
           this.$emit("close");
+          this.loading = true;
         })
         .catch(() => {
           alert("予約内容の更新ができませんでした。お手数ですが再度お試しください")
+          this.loading = true;
         })
     },
   },
@@ -143,10 +169,13 @@ export default {
     text-align: left;
   }
   th {
-    width: 30%;
+    width: 25%;
     background: #f8f3e9;
     padding: 15px 5px;
     border: 1px solid #fff;
+  }
+  .th_2{
+    width: 60%;
   }
   td {
     padding-left: 5px;
@@ -176,8 +205,9 @@ export default {
     background: #fff;
     border-top: 8px solid #ffa500;
   }
-  .update_button {
-    background-color: rgb(2, 223, 186);
+  .button {
+    width: 100px;
+    height: 40px;
   }
   .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active,
   .time-color >>> .vue__time-picker .dropdown ul li:not([disabled]).active:focus,
@@ -190,5 +220,9 @@ export default {
     font-size: 15px;
     color: rgb(131, 130, 130);
     border-radius: 4px;
+  }
+  .loading{
+    margin-left: 12px;
+    padding-top: 2px;
   }
 </style>

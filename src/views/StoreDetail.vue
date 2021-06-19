@@ -5,7 +5,7 @@
       <div class="store_detail">
         <h2 class="store_name">{{ store.name }}</h2>
         <div class="detail_image_div">
-          <img :src="store.image" alt="store_image" class="image detail_image" />
+          <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + store.image" alt="store_image" class="image detail_image" />
         </div>
         <div class="flex tag">
           <p class="area" v-if="store">#{{ store.area.area }}</p>
