@@ -139,8 +139,8 @@ export default {
   },
   methods: {
     // 店舗情報取得
-    getStoreDetail() {
-      axios
+    async getStoreDetail() {
+      await axios
         .get("https://rese-booking.herokuapp.com/api/store/" + this.id)
         .then((response) => {
           this.store = response.data.store;

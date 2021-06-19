@@ -127,8 +127,8 @@ export default {
   },
   methods: {
     // お気に入り店舗情報取得
-    getMyFavorite() {
-      axios
+    async getMyFavorite() {
+      await axios
         .get(
           "https://rese-booking.herokuapp.com/api/user/" +
             this.$store.state.user.id +
@@ -147,8 +147,8 @@ export default {
         });
     },
     // 予約状況取得
-    getMyBooking() {
-      axios
+    async getMyBooking() {
+      await axios
         .get(
           "https://rese-booking.herokuapp.com/api/user/" +
             this.$store.state.user.id +
