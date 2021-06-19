@@ -1,10 +1,12 @@
 <template>
   <div class="login">
+    <!-- ログイン -->
     <h2>ログイン</h2>
     <div class="login_card">
       <form action="">
         <ul>
           <li>
+            <!-- メールアドレス -->
             <label for="email">メールアドレス:</label>
             <input
               type="email"
@@ -12,10 +14,16 @@
               placeholder="メールアドレスを入力してください"
               v-model="email"
             />
-            <div class="error" v-if="email_required">メールアドレスが入力されていません</div>
-            <div class="error" v-if="not_email">メールアドレスで入力してください</div>
+            <!-- メールアドレスエラーメッセージ -->
+            <div class="error" v-if="email_required">
+              メールアドレスが入力されていません
+            </div>
+            <div class="error" v-if="not_email">
+              メールアドレスで入力してください
+            </div>
           </li>
           <li>
+            <!-- パスワード -->
             <label for="password">パスワード:</label>
             <input
               type="password"
@@ -23,7 +31,10 @@
               placeholder="パスワードを入力してください"
               v-model="password"
             />
-            <div class="error" v-if="password_required">パスワードが入力されていません</div>
+            <!-- パスワードエラーメッセージ -->
+            <div class="error" v-if="password_required">
+              パスワードが入力されていません
+            </div>
           </li>
         </ul>
         <button @click="login" type="button" class="button">ログイン</button
@@ -40,27 +51,32 @@ export default {
     return {
       email: "",
       password: "",
-      email_required:false,
-      not_email:false,
-      password_required:false,
+      email_required: false,
+      not_email: false,
+      password_required: false,
     };
   },
   methods: {
     // ログイン
     login() {
       // バリデーション
-
-      if (this.email == ""){
-        this.email_required = true
-      } if (this.password == ""){
-        this.password_required = true
-      } if (!this.email.includes("@")){
-        this.not_email = true
+      // メールアドレスが空ならメッセージ表示
+      if (this.email == "") {
+        this.email_required = true;
+      }
+      // パスワードが空ならメッセージ表示
+      if (this.password == "") {
+        this.password_required = true;
+      }
+      // メールアドレスでなければメッセージ表示
+      if (!this.email.includes("@")) {
+        this.not_email = true;
       } else {
-      this.$store.dispatch("login", {
-        email: this.email,
-        password: this.password,
-      });
+        // 上記以外の場合ログイン処理
+        this.$store.dispatch("login", {
+          email: this.email,
+          password: this.password,
+        });
       }
     },
   },
@@ -68,6 +84,9 @@ export default {
 </script>
 
 <style scoped>
+/* ====================
+      ログイン
+==================== */
   .login {
     width: 60%;
     margin: 0 auto;
@@ -101,11 +120,11 @@ export default {
   .button {
     padding: 10px 15px;
   }
-  .error{
+  .error {
     color: red;
     margin-left: 30%;
   }
-  label{
+  label {
     font-weight: bold;
   }
 /* ====================
@@ -119,7 +138,7 @@ export default {
   input {
     width: 90%;
   }
-  .error{
+  .error {
     margin: 0;
   }
 }

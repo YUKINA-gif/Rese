@@ -8,7 +8,7 @@ import Thanks from "../views/Thanks.vue";
 import Done from "../views/Done.vue";
 import StoreDetail from "../views/StoreDetail.vue";
 import store from "../store/index";
-import NotFound from '../views/NotFound.vue';
+import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
 

@@ -8,6 +8,9 @@
 </template>
 
 <style scoped>
+/* ====================
+      会員登録完了
+==================== */
   .thanks {
     width: 50%;
     margin: 0 auto;

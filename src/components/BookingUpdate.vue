@@ -2,6 +2,7 @@
   <transition name="modal">
     <div class="overlay" @click.self="$emit('close')">
       <div class="modal_window">
+        <!-- 予約更新 -->
         <p id="title">予約更新</p>
         <table>
           <tr>
@@ -35,7 +36,7 @@
           </tr>
           <tr>
             <th>予約時間</th>
-            <td>{{ val.booking_time.substr(0,5) }}</td>
+            <td>{{ val.booking_time.substr(0, 5) }}</td>
             <td class="time-color">
               <vue-timepicker
                 placeholder="時間を選択してください"
@@ -84,14 +85,16 @@
           </tr>
         </table>
 
-        <button class="button" @click="booking_update"><p v-if="loading">予約更新</p>
+        <button class="button" @click="booking_update">
+          <p v-if="loading">予約更新</p>
           <vue-loading
             type="barsCylon"
             color="#fff"
             :size="{ width: '60px', height: '60px' }"
             v-else
             class="loading"
-          ></vue-loading></button>
+          ></vue-loading>
+        </button>
       </div>
     </div>
   </transition>
@@ -103,7 +106,7 @@ import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
 import { VueLoading } from "vue-loading-template";
 export default {
   props: ["val"],
@@ -118,22 +121,24 @@ export default {
   components: {
     datetime,
     "vue-timepicker": VueTimepicker,
-    VueLoading
+    VueLoading,
   },
-  computed:{
+  // カレンダー日付設定
+  computed: {
     startDate() {
       // 明日からの日付を指定
-      const start = moment().add(1, 'days')
-      return start.format('YYYY-MM-DD')
+      const start = moment().add(1, "days");
+      return start.format("YYYY-MM-DD");
     },
     endDate() {
       // 3ヶ月後までを指定
-      const start = moment(this.start)
-      const end = start.add(3, 'months').endOf('day')
-      return end.format('YYYY-MM-DD')
-    }
+      const start = moment(this.start);
+      const end = start.add(3, "months").endOf("day");
+      return end.format("YYYY-MM-DD");
+    },
   },
   methods: {
+    // 予約更新
     booking_update() {
       this.loading = false;
       axios
@@ -152,9 +157,11 @@ export default {
           this.loading = true;
         })
         .catch(() => {
-          alert("予約内容の更新ができませんでした。お手数ですが再度お試しください")
+          alert(
+            "予約内容の更新ができませんでした。お手数ですが再度お試しください"
+          );
           this.loading = true;
-        })
+        });
     },
   },
 };
@@ -174,7 +181,7 @@ export default {
     padding: 15px 5px;
     border: 1px solid #fff;
   }
-  .th_2{
+  .th_2 {
     width: 60%;
   }
   td {
@@ -221,7 +228,7 @@ export default {
     color: rgb(131, 130, 130);
     border-radius: 4px;
   }
-  .loading{
+  .loading {
     margin-left: 12px;
     padding-top: 2px;
   }

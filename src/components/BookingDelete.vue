@@ -2,10 +2,17 @@
   <transition name="modal">
     <div class="overlay" @click.self="$emit('close')">
       <div class="modal_window">
+        <!-- 予約取消 -->
         <p id="title">予約取消</p>
         <p class="check_text">本当にこの予約を取消しますか?</p>
 
-        <button class="button yes_button" @click="booking_delete" v-if="loading">はい</button>
+        <button
+          class="button yes_button"
+          @click="booking_delete"
+          v-if="loading"
+        >
+          はい
+        </button>
         <button class="button" @click.self="$emit('close')" v-if="loading">
           いいえ
         </button>
@@ -14,7 +21,7 @@
           color="#ffa500"
           v-else
           class="loading"
-    ></vue-loading>
+        ></vue-loading>
       </div>
     </div>
   </transition>
@@ -27,11 +34,11 @@ export default {
   props: ["val"],
   data() {
     return {
-      loading: true
+      loading: true,
     };
   },
-  components:{
-    VueLoading
+  components: {
+    VueLoading,
   },
   methods: {
     booking_delete() {

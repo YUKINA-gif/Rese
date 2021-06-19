@@ -5,7 +5,14 @@
       <div class="store_detail">
         <h2 class="store_name">{{ store.name }}</h2>
         <div class="detail_image_div">
-          <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + store.image" alt="store_image" class="image detail_image" />
+          <img
+            :src="
+              'https://rese-image.s3.ap-northeast-3.amazonaws.com/' +
+                store.image
+            "
+            alt="store_image"
+            class="image detail_image"
+          />
         </div>
         <div class="flex tag">
           <p class="area" v-if="store">#{{ store.area.area }}</p>
@@ -13,7 +20,7 @@
         </div>
         <p class="overview">{{ store.overview }}</p>
       </div>
-    <!-- 予約 -->
+      <!-- 予約 -->
       <div class="booking">
         <h2 class="booking_title">ご予約</h2>
         <form>
@@ -86,7 +93,7 @@
         </button>
       </div>
     </div>
-    <!-- 予約最終確認（モーダルウィンドウ） -->
+    <!-- 予約最終確認モーダル -->
     <Modal v-if="modal" @close="closeModal" :val="checkItem"></Modal>
     <button class="button back_button" @click="$router.push('/')">戻る</button>
   </div>
@@ -99,25 +106,26 @@ import VueTimepicker from "vue2-timepicker";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import axios from "axios";
 import Modal from "../components/BookingCheck";
-import moment from 'moment';
+import moment from "moment";
 export default {
   components: {
     datetime,
     "vue-timepicker": VueTimepicker,
     Modal,
   },
-  computed:{
+  // カレンダー日付設定
+  computed: {
     startDate() {
       // 明日からの日付を指定
-      const start = moment().add(1, 'days')
-      return start.format('YYYY-MM-DD')
+      const start = moment().add(1, "days");
+      return start.format("YYYY-MM-DD");
     },
     endDate() {
       // 3ヶ月後までを指定
-      const start = moment(this.start)
-      const end = start.add(3, 'months').endOf('day')
-      return end.format('YYYY-MM-DD')
-    }
+      const start = moment(this.start);
+      const end = start.add(3, "months").endOf("day");
+      return end.format("YYYY-MM-DD");
+    },
   },
   props: ["id"],
   data() {
@@ -276,7 +284,7 @@ export default {
     margin: 0 auto;
     text-align: center;
   }
-  .booking{
+  .booking {
     margin: 0;
   }
   .flex {
@@ -298,7 +306,7 @@ export default {
   .overview,
   .booking_date,
   .booking_time,
-  .booking_number{
+  .booking_number {
     width: 100%;
     margin: 0 auto;
   }

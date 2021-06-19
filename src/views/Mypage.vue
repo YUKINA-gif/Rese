@@ -1,5 +1,6 @@
 <template>
   <div class="mypage">
+    <!-- マイページ -->
     <p class="username">{{ name }}様</p>
     <!-- 予約状況一覧 -->
     <span class="title">予約状況</span>
@@ -12,7 +13,13 @@
       class="booking flex"
       v-else
     >
-      <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + booking.store.image" class="image store_image" />
+      <img
+        :src="
+          'https://rese-image.s3.ap-northeast-3.amazonaws.com/' +
+            booking.store.image
+        "
+        class="image store_image"
+      />
       <table class="mybooking">
         <tr>
           <th>店名:</th>
@@ -24,25 +31,28 @@
         </tr>
         <tr>
           <th>予約時間:</th>
-          <td>{{ booking.booking_time.substr(0,5) }}</td>
+          <td>{{ booking.booking_time.substr(0, 5) }}</td>
         </tr>
         <tr>
           <th>予約人数:</th>
           <td>{{ booking.booking_number }}人</td>
         </tr>
       </table>
-
+      <!-- 予約内容変更モーダル表示 -->
       <div class="booking_button">
         <button
           class="button"
           id="booking_update_button"
-          @click="openModal(booking)">
-          予約内容の変更
-        </button><br>
+          @click="openModal(booking)"
+        >
+          予約内容の変更</button
+        ><br />
+        <!-- 予約取消モーダル表示 -->
         <button
           class="button"
           id="booking_delete_button"
-          @click="openModalDel(booking)">
+          @click="openModalDel(booking)"
+        >
           予約取消
         </button>
       </div>
@@ -61,13 +71,20 @@
     <p v-if="haveFavorite">お気に入り店舗はありません</p>
     <div class="flex wrap store_flex" v-else>
       <div class="store_card" v-for="(store, index) in favorites" :key="index">
-        <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + store.store.image" alt="" class="image" />
-      <div class="flex">
-        <span class="store_name">{{ store.store.name }}</span>
-        <div @click="favorite(store)">
-          <img src="../assets/heart.png" alt="" class="png" />
+        <img
+          :src="
+            'https://rese-image.s3.ap-northeast-3.amazonaws.com/' +
+              store.store.image
+          "
+          alt=""
+          class="image"
+        />
+        <div class="flex">
+          <span class="store_name">{{ store.store.name }}</span>
+          <div @click="favorite(store)">
+            <img src="../assets/heart.png" alt="" class="png" />
+          </div>
         </div>
-      </div>
         <div class="flex">
           <p class="area">#{{ store.store.area.area }}</p>
           <p class="genre">#{{ store.store.genre.genre }}</p>
@@ -78,7 +95,9 @@
             $router.push({
               path: '/detail/' + store.store_id,
               params: { id: store.id },
-            })">
+            })
+          "
+        >
           店舗詳細・予約
         </button>
       </div>
@@ -296,7 +315,6 @@ export default {
     margin: 15px 0 20px 10px;
     color: gray;
   }
-
 /* ====================
       レスポンシブ
 ==================== */
@@ -304,34 +322,33 @@ export default {
   .mypage {
     width: 90%;
   }
-  .booking{
+  .booking {
     flex-wrap: wrap;
   }
-  .booking_button{
+  .booking_button {
     display: flex;
     width: 100%;
   }
   .store_image,
-  .mybooking
-  {
+  .mybooking {
     width: 100%;
   }
-  .store_card{
+  .store_card {
     width: 47%;
   }
-  th{
+  th {
     padding: 20px 5px;
     width: 30%;
   }
-  td{
+  td {
     width: 70%;
   }
   #booking_update_button,
-  #booking_delete_button{
+  #booking_delete_button {
     width: 40%;
     margin: 10px auto;
   }
-  #booking_delete_button{
+  #booking_delete_button {
     margin-left: 20px;
   }
 }

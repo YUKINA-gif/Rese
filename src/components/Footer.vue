@@ -1,5 +1,6 @@
 <template>
   <div class="footer flex">
+    <!-- フッター -->
     <div class="flex">
       <h1>Rese</h1>
     </div>
@@ -23,6 +24,9 @@ export default {
 </script>
 
 <style scoped>
+/* ====================
+      フッター
+==================== */
   .footer {
     width: 60%;
     margin: 0 auto;

@@ -1,15 +1,27 @@
 <template>
   <div :class="header" class="header flex">
+    <!-- ヘッダー -->
     <h1 @click="$router.push('/')">Rese</h1>
     <div>
       <nav class="nav">
         <ul class="flex">
           <li @click="$router.push('/mypage')">マイページ</li>
-          <li @click="$router.push('/login')" v-if="this.$store.state.auth  == false">ログイン</li>
-          <li @click="$router.push('/register')" v-if="this.$store.state.auth  == false">新規会員登録</li>
+          <li
+            @click="$router.push('/login')"
+            v-if="this.$store.state.auth == false"
+          >
+            ログイン
+          </li>
+          <li
+            @click="$router.push('/register')"
+            v-if="this.$store.state.auth == false"
+          >
+            新規会員登録
+          </li>
           <li @click="logout" v-else>ログアウト</li>
         </ul>
       </nav>
+      <!-- ハンバーガーメニュー -->
       <div class="hamburger" @click="hamburger()" :class="{ active: menu }">
         <span></span>
         <span></span>
@@ -19,8 +31,12 @@
       <nav :class="{ open: menu }" class="menu_content">
         <ul class="hamburger_memu">
           <li><a href="/mypage">マイページ</a></li>
-          <li v-if="this.$store.state.auth  == false"><a href="/login">ログイン</a></li>
-          <li v-if="this.$store.state.auth  == false"><a href="/register">新規会員登録</a></li>
+          <li v-if="this.$store.state.auth == false">
+            <a href="/login">ログイン</a>
+          </li>
+          <li v-if="this.$store.state.auth == false">
+            <a href="/register">新規会員登録</a>
+          </li>
           <li @click="logout" v-else>ログアウト</li>
         </ul>
       </nav>
@@ -33,14 +49,14 @@ export default {
   data() {
     return {
       menu: false,
-      header: "default"
+      header: "default",
     };
   },
   methods: {
     hamburger() {
       this.menu = !this.menu;
     },
-    logout(){
+    logout() {
       this.$store.dispatch("logout");
     },
   },
@@ -48,6 +64,9 @@ export default {
 </script>
 
 <style scoped>
+/* ====================
+      ヘッダー
+==================== */
   .header {
     height: 60px;
     line-height: 60px;
@@ -58,7 +77,7 @@ export default {
     z-index: 999;
     background-color: #ffa500;
   }
-  .custom a{
+  .custom a {
     color: #ffa500;
   }
   h1 {
@@ -70,7 +89,7 @@ export default {
     color: #fff;
     margin-left: 20px;
   }
-  .nav{
+  .nav {
     position: absolute;
     right: 0;
   }
@@ -79,7 +98,7 @@ export default {
     font-weight: bold;
     cursor: pointer;
   }
-  .menu_content{
+  .menu_content {
     display: none;
   }
 /* ====================

@@ -1,23 +1,20 @@
 <template>
   <div id="main">
-<!-- メイン画像 -->
+    <!-- メイン画像 -->
     <img
       src="../assets/italian.jpg"
       alt="main_image"
       class="image main_image"
     />
     <div class="search">
-<!-- 店舗検索 -->
+      <!-- 店舗検索 -->
       <h2>店舗検索</h2>
       <div class="flex seach_flex">
         <select name="エリア" v-model="seachArea">
           <option value="" hidden class="pull_down">エリア </option>
           <option value="0">すべて</option>
-          <option
-            v-for="(area, index) in areas"
-            :key="index"
-            :value="area.id"
-          >{{ area.area }}
+          <option v-for="(area, index) in areas" :key="index" :value="area.id"
+            >{{ area.area }}
           </option>
         </select>
 
@@ -38,7 +35,7 @@
       </div>
     </div>
 
-<!-- 店舗一覧 -->
+    <!-- 店舗一覧 -->
     <div class="stores_container">
       <h2 id="store_title">店舗一覧</h2>
       <p v-if="seachResult">検索店舗はありません</p>
@@ -50,8 +47,20 @@
           v-if="loading"
           class="loading"
         ></vue-loading>
-        <div class="store_card" v-for="(store, index) in stores" :key="index" v-else>
-          <img :src="'https://rese-image.s3.ap-northeast-3.amazonaws.com/' + store.image" alt="" class="store_image image" />
+        <div
+          class="store_card"
+          v-for="(store, index) in stores"
+          :key="index"
+          v-else
+        >
+          <img
+            :src="
+              'https://rese-image.s3.ap-northeast-3.amazonaws.com/' +
+                store.image
+            "
+            alt=""
+            class="store_image image"
+          />
           <div>
             <div class="flex store_heart">
               <span class="store_name">{{ store.name }}</span>
@@ -75,14 +84,16 @@
                 $router.push({
                   path: '/detail/' + store.id,
                   params: { id: store.id },
-                })">
+                })
+              "
+            >
               店舗詳細・予約
             </button>
           </div>
         </div>
       </div>
     </div>
-<!-- フッター -->
+    <!-- フッター -->
     <Footer />
   </div>
 </template>
@@ -94,7 +105,7 @@ import { VueLoading } from "vue-loading-template";
 export default {
   components: {
     Footer,
-    VueLoading
+    VueLoading,
   },
   data() {
     return {
@@ -126,7 +137,7 @@ export default {
         })
         .catch(() => {
           this.loading = false;
-        })
+        });
     },
     // お気に入り店舗登録もしくは削除
     favorite(store) {
@@ -150,7 +161,10 @@ export default {
     },
     // ユーザーお気に入り情報取得してハートに反映
     checkFavorite(index) {
-      if (this.stores[index].favorites.length === 0 || this.$store.state.auth == false) {
+      if (
+        this.stores[index].favorites.length === 0 ||
+        this.$store.state.auth == false
+      ) {
         return false;
       } else {
         return true;
@@ -160,28 +174,26 @@ export default {
     storeSeach() {
       this.loading = true;
       axios
-        .get("https://rese-booking.herokuapp.com/api/storesSeach/" + this.$store.state.user.id, {
-          params: {
-            name: this.seachStoreName,
-            area_id: this.seachArea,
-            genre_id: this.seachGenre,
-          },
-        })
+        .get(
+          "https://rese-booking.herokuapp.com/api/storesSeach/" +
+            this.$store.state.user.id,
+          {
+            params: {
+              name: this.seachStoreName,
+              area_id: this.seachArea,
+              genre_id: this.seachGenre,
+            },
+          }
+        )
         .then((response) => {
-            this.stores = response.data.store;
-            this.seachResult = false;
-            this.loading = false;
-          })
-        .catch(() => {
-            this.seachResult = true;
-            this.loading = false;
+          this.stores = response.data.store;
+          this.seachResult = false;
+          this.loading = false;
         })
-    },
-    clear() {
-      this.$router.go({
-        path: this.$router.currentRoute.path,
-        force: true,
-      });
+        .catch(() => {
+          this.seachResult = true;
+          this.loading = false;
+        });
     },
   },
   created() {
@@ -197,7 +209,6 @@ export default {
   .main_image {
     height: 580px;
   }
-
 /* ====================
       店舗検索
 ==================== */
@@ -297,7 +308,7 @@ export default {
   .store_button {
     width: 80%;
   }
-  .seach_flex{
+  .seach_flex {
     flex-wrap: wrap;
   }
   .search {
@@ -312,7 +323,8 @@ export default {
     width: 100%;
     margin-bottom: 10px;
   }
-  .seach_button,.delete_seach{
+  .seach_button,
+  .delete_seach {
     height: 40px;
     width: 40%;
     margin: 0 auto;

@@ -2,6 +2,7 @@
   <transition name="modal">
     <div class="overlay" @click.self="$emit('close')">
       <div class="modal_window">
+        <!-- 予約最終確認 -->
         <p id="title">予約</p>
         <p class="check_text">この内容で予約しますか?</p>
 
@@ -46,16 +47,17 @@ export default {
   props: ["val"],
   data() {
     return {
-      loading: true
+      loading: true,
     };
   },
-  components:{
-    VueLoading
+  components: {
+    VueLoading,
   },
   methods: {
+    // 予約
     booking() {
       if (this.$store.state.auth == true) {
-          this.loading = false;
+        this.loading = false;
         axios
           .post("https://rese-booking.herokuapp.com/api/booking", {
             user_id: this.$store.state.user.id,
@@ -84,7 +86,7 @@ export default {
 
 <style scoped>
 /* ====================
-      予約更新
+    予約最終確認
 ==================== */
   table {
     width: 100%;
@@ -124,7 +126,7 @@ export default {
     background: #fff;
     border-top: 8px solid #ffa500;
   }
-  .button{
+  .button {
     width: 80px;
     height: 40px;
   }
@@ -138,7 +140,7 @@ export default {
   .check_text {
     margin-bottom: 20px;
   }
-  .loading{
+  .loading {
     margin-left: 4px;
     padding-top: 2px;
   }

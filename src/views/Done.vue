@@ -1,11 +1,15 @@
 <template>
   <div class="booked">
+    <!-- 予約完了 -->
     <h3>ご予約ありがとうございます</h3>
     <button class="button" @click="$router.push('/')">戻る</button>
   </div>
 </template>
 
 <style scoped>
+/* ====================
+      予約完了
+==================== */
   .booked {
     width: 50%;
     margin: 0 auto;
@@ -20,10 +24,10 @@
       レスポンシブ
 ==================== */
 @media screen and (max-width: 768px) {
-  .booked{
+  .booked {
     width: 90%;
   }
-  .button{
+  .button {
     padding: 10px 30px;
   }
 }
