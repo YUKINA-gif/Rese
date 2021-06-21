@@ -9,8 +9,8 @@
     <div class="search">
       <!-- 店舗検索 -->
       <h2>店舗検索</h2>
-      <div class="flex seach_flex">
-        <select name="エリア" v-model="seachArea">
+      <div class="flex search_flex">
+        <select name="エリア" v-model="searchArea">
           <option value="" hidden class="pull_down">エリア </option>
           <option value="0">すべて</option>
           <option v-for="(area, index) in areas" :key="index" :value="area.id"
@@ -18,7 +18,7 @@
           </option>
         </select>
 
-        <select name="ジャンル" v-model="seachGenre">
+        <select name="ジャンル" v-model="searchGenre">
           <option value="" hidden class="pull_down">ジャンル</option>
           <option value="0">すべて</option>
           <option
@@ -28,8 +28,8 @@
             >{{ genre.genre }}</option
           >
         </select>
-        <input type="serch" placeholder="店名" v-model="seachStoreName" />
-        <button type="submit" class="button seach_button" @click="storeSeach">
+        <input type="serch" placeholder="店名" v-model="searchStoreName" />
+        <button type="submit" class="button search_button" @click="storeSearch">
           検索
         </button>
       </div>
@@ -38,7 +38,7 @@
     <!-- 店舗一覧 -->
     <div class="stores_container">
       <h2 id="store_title">店舗一覧</h2>
-      <p v-if="seachResult">検索店舗はありません</p>
+      <p v-if="searchResult">検索店舗はありません</p>
       <div class="flex wrap store_flex" v-else>
         <vue-loading
           type="spin"
@@ -64,15 +64,7 @@
           <div>
             <div class="flex store_heart">
               <span class="store_name">{{ store.name }}</span>
-              <div @click="favorite(store)">
-                <img
-                  src="../assets/heart.png"
-                  alt=""
-                  class="png"
-                  v-if="checkFavorite(index)"
-                />
-                <img src="../assets/no-heart.png" alt="" class="png" v-else />
-              </div>
+              <Heart :val="store" />
             </div>
             <div class="flex">
               <p>#{{ store.area.area }}</p>
@@ -102,22 +94,25 @@
 import Footer from "../components/Footer";
 import axios from "axios";
 import { VueLoading } from "vue-loading-template";
+import Heart from "../components/Heart.vue";
 export default {
   components: {
     Footer,
     VueLoading,
+    Heart,
   },
   data() {
     return {
       stores: [],
       areas: [],
       genres: [],
-      seachArea: "",
-      seachGenre: "",
-      seachStoreName: "",
+      searchArea: "",
+      searchGenre: "",
+      searchStoreName: "",
       heart: "",
-      seachResult: false,
+      searchResult: false,
       loading: false,
+      isActive: false,
     };
   },
   methods: {
@@ -139,39 +134,8 @@ export default {
           this.loading = false;
         });
     },
-    // お気に入り店舗登録もしくは削除
-    favorite(store) {
-      // ログインしていなければログイン画面へ誘導
-      if (this.$store.state.auth == true) {
-        axios
-          .post("https://rese-booking.herokuapp.com/api/favorite", {
-            user_id: this.$store.state.user.id,
-            store_id: store.id,
-          })
-          .then((response) => {
-            console.log(response);
-            this.$router.go({
-              path: this.$router.currentRoute.path,
-              force: true,
-            });
-          });
-      } else {
-        this.$router.replace("/login");
-      }
-    },
-    // ユーザーお気に入り情報取得してハートに反映
-    checkFavorite(index) {
-      if (
-        this.stores[index].favorites.length === 0 ||
-        this.$store.state.auth == false
-      ) {
-        return false;
-      } else {
-        return true;
-      }
-    },
     // 店舗検索
-    async storeSeach() {
+    async storeSearch() {
       this.loading = true;
       await axios
         .get(
@@ -179,19 +143,19 @@ export default {
             this.$store.state.user.id,
           {
             params: {
-              name: this.seachStoreName,
-              area_id: this.seachArea,
-              genre_id: this.seachGenre,
+              name: this.searchStoreName,
+              area_id: this.searchArea,
+              genre_id: this.searchGenre,
             },
           }
         )
         .then((response) => {
           this.stores = response.data.store;
-          this.seachResult = false;
+          this.searchResult = false;
           this.loading = false;
         })
         .catch(() => {
-          this.seachResult = true;
+          this.searchResult = true;
           this.loading = false;
         });
     },
@@ -235,12 +199,12 @@ export default {
   h2 {
     margin-bottom: 10px;
   }
-  .seach_button,
-  .delete_seach {
+  .search_button,
+  .delete_search {
     width: 10%;
     line-height: 28px;
   }
-  .delete_seach {
+  .delete_search {
     background-color: brown;
     margin-left: 10px;
   }
@@ -308,7 +272,7 @@ export default {
   .store_button {
     width: 80%;
   }
-  .seach_flex {
+  .search_flex {
     flex-wrap: wrap;
   }
   .search {
@@ -323,8 +287,8 @@ export default {
     width: 100%;
     margin-bottom: 10px;
   }
-  .seach_button,
-  .delete_seach {
+  .search_button,
+  .delete_search {
     height: 40px;
     width: 40%;
     margin: 0 auto;
