@@ -139,7 +139,7 @@ export default {
       this.loading = true;
       await axios
         .get(
-          "https://rese-booking.herokuapp.com/api/storesSearch/" +
+          "https://rese-booking.herokuapp.com/api/storesSeach/" +
             this.$store.state.user.id,
           {
             params: {
