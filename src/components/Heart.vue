@@ -12,20 +12,20 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 library.add(fas);
-Vue.component("font-awesome-icon", FontAwesomeIcon);
-
 export default {
   props: ["val"],
   data() {
     return {
       isActive: false,
     };
+  },
+  components:{
+    "font-awesome-icon" : FontAwesomeIcon
   },
   methods: {
     // お気に入り店舗登録もしくは削除

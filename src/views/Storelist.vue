@@ -95,6 +95,7 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import { VueLoading } from "vue-loading-template";
 import Heart from "../components/Heart.vue";
+
 export default {
   components: {
     Footer,
