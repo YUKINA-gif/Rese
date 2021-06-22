@@ -217,7 +217,7 @@ export default {
   マイページ全体設計
 ==================== */
   .mypage {
-    width: 70%;
+    width: 60%;
     margin: 50px auto;
   }
   .username {
@@ -242,6 +242,7 @@ export default {
   }
   .booking {
     margin-bottom: 20px;
+    border: 1px solid #f8f3e9;
   }
   .store_name {
     font-weight: bold;
@@ -250,7 +251,7 @@ export default {
     margin: 10px;
   }
   th {
-    padding: 25px;
+    padding: 18px;
     width: 1%;
     text-align: left;
     background-color: #f8f3e9;
@@ -268,20 +269,12 @@ export default {
   #booking_update_button {
     color: #fff;
     font-weight: bold;
-    margin-bottom: 10px;
-    width: 80%;
-  }
-  #booking_delete_button {
-    background-color: rgb(204, 6, 6);
-  }
-  #booking_update_button {
-    background-color: rgb(2, 223, 186);
+    margin: 10px 0;
+    width: 150px;
+    border-radius: 5px;
   }
   .store_image {
     width: 300px;
-  }
-  .booking_button {
-    width: 25%;
   }
 /* ====================
     お気に入り店舗
