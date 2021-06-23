@@ -2,7 +2,11 @@
   <div class="footer flex">
     <!-- フッター -->
     <div class="flex">
-      <h1>Rese</h1>
+      <h1>
+        <font-awesome-icon
+            icon="store"
+            class="icon title_icon"
+          />Rese</h1>
     </div>
     <div class="page_back">
       <p @click="scrollTop"><span>▲</span>ページ上部へ戻る</p>

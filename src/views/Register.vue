@@ -7,11 +7,15 @@
         <ul>
           <li>
             <!-- 名前 -->
-            <label for="name"><span>*</span>お名前:</label>
+            <label for="name">
+              <font-awesome-icon
+              icon="user"
+              class="icon"
+            /></label>
             <input
               type="text"
               id="name"
-              placeholder="お名前を入力してください"
+              placeholder="お名前"
               v-model="name"
             /><br>
             <!-- 名前エラーメッセージ -->
@@ -19,11 +23,15 @@
           </li>
           <li>
             <!-- メールアドレス -->
-            <label for="email"><span>*</span>メールアドレス:</label>
+            <label for="email">
+              <font-awesome-icon
+              icon="envelope"
+              class="icon"
+            /></label>
             <input
               type="email"
               id="email"
-              placeholder="メールアドレスを入力してください"
+              placeholder="メールアドレス"
               v-model="email"
             />
             <!-- メールアドレスエラーメッセージ -->
@@ -32,11 +40,15 @@
           </li>
           <li>
             <!-- パスワード -->
-            <label for="password"><span>*</span>パスワード:</label>
+            <label for="password">
+              <font-awesome-icon
+              icon="key"
+              class="icon"
+            /></label>
             <input
               type="password"
               id="password"
-              placeholder="8文字以上で入力してください"
+              placeholder="パスワード"
               v-model="password"
             />
             <!-- パスワードエラーメッセージ -->
@@ -113,12 +125,12 @@ export default {
         会員登録
 ==================== */
   .register {
-    width: 60%;
+    width: 50%;
     margin: 0 auto;
     text-align: center;
   }
   .register_card {
-    width: 80%;
+    width: 50%;
     margin: 50px auto;
     padding: 30px;
     border: 1px solid #c2c2c2;
@@ -127,12 +139,13 @@ export default {
     text-align: center;
   }
   input {
-    width: 60%;
-    padding: 8px;
+    width: 90%;
+    padding: 8px 0 8px 50px;
+    font-size: 16px;
+    border: none;
   }
-  label {
-    display: inline-block;
-    width: 30%;
+  label{
+    position: relative;
   }
   li {
     text-align: left;
@@ -150,6 +163,15 @@ export default {
   }
   .error{
     margin-left: 30%;
+  }
+  .icon {
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+  margin-left: 5px;
+  padding-top: 9px;
+  position: absolute;
+  color: gray;
   }
 /* ====================
       レスポンシブ

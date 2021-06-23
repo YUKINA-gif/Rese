@@ -27,7 +27,11 @@
           <ul>
             <li class="flex">
               <!-- 来店日 -->
-              <p class="booking_date">来店日:</p>
+              <p class="booking_date">
+                <font-awesome-icon
+                  icon="calendar"
+                  class="icon"
+                /></p>
               <datetime
                 label="日付を選択してください"
                 format="YYYY-MM-DD"
@@ -46,7 +50,12 @@
           <!-- 来店時間 -->
           <ul>
             <li class="time_color flex">
-              <p class="booking_time">来店時間:</p>
+              <p class="booking_time">
+                <font-awesome-icon
+                  icon="clock"
+                  class="icon"
+                />
+              </p>
               <vue-timepicker
                 placeholder="時間を選択してください"
                 format="H:mm"
@@ -79,7 +88,12 @@
           <!-- 来店人数 -->
           <ul>
             <li class="flex">
-              <p class="booking_number">人数:</p>
+              <p class="booking_number">
+                <font-awesome-icon
+                  icon="users"
+                  class="icon"
+                />
+              </p>
               <select type="number" name="i" v-model="number" class="number">
                 <option value="">人数を選択してください</option>
                 <option v-for="i in 30" :key="i">{{ i }}</option>
@@ -214,8 +228,9 @@ export default {
 =============== */
   .booking {
     width: 100%;
-    margin: 60px 0 60px 20px;
+    margin: 60px 0 60px 50px;
     text-align: center;
+    line-height: 2;
   }
   ul {
     margin-top: 30px;
@@ -236,23 +251,31 @@ export default {
   .booking_number,
   .booking_date,
   .booking_time {
-    font-size: 20px;
-    margin-top: 12px;
-    font-weight: bold;
+    font-size: 23px;
   }
   .booking_number {
-    width: 38%;
+    width: 10%;
+    font-size: 21px;
   }
   .booking_date,
   .booking_time {
-    width: 35%;
+    width: 9%;
+  }
+  .booking_date{
+    padding-left: 5px;
+  }
+  .booking_time {
+    padding-left: 2px;
+  }
+  .icon{
+    color: gray;
   }
   form {
     text-align: left;
   }
   .booking_title {
     font-size: 25px;
-    margin: 30px 0 40px 0;
+    margin: 20px 0 40px 0;
   }
   .booking_button {
     margin-top: 50px;
@@ -262,7 +285,7 @@ export default {
 
   .back_button {
     width: 100px;
-    margin: 30px 50%;
+    margin: 0 50%;
     padding: 5px 20px;
     transform: translate(-50%);
   }
