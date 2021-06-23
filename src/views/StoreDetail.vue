@@ -28,10 +28,8 @@
             <li class="flex">
               <!-- 来店日 -->
               <p class="booking_date">
-                <font-awesome-icon
-                  icon="calendar"
-                  class="icon"
-                /></p>
+                <font-awesome-icon icon="calendar" class="icon" />
+              </p>
               <datetime
                 label="日付を選択してください"
                 format="YYYY-MM-DD"
@@ -51,10 +49,7 @@
           <ul>
             <li class="time_color flex">
               <p class="booking_time">
-                <font-awesome-icon
-                  icon="clock"
-                  class="icon"
-                />
+                <font-awesome-icon icon="clock" class="icon" />
               </p>
               <vue-timepicker
                 placeholder="時間を選択してください"
@@ -89,10 +84,7 @@
           <ul>
             <li class="flex">
               <p class="booking_number">
-                <font-awesome-icon
-                  icon="users"
-                  class="icon"
-                />
+                <font-awesome-icon icon="users" class="icon" />
               </p>
               <select type="number" name="i" v-model="number" class="number">
                 <option value="">人数を選択してください</option>
@@ -261,13 +253,13 @@ export default {
   .booking_time {
     width: 9%;
   }
-  .booking_date{
+  .booking_date {
     padding-left: 5px;
   }
   .booking_time {
     padding-left: 2px;
   }
-  .icon{
+  .icon {
     color: gray;
   }
   form {

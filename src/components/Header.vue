@@ -2,43 +2,31 @@
   <div :class="header" class="header flex">
     <!-- ヘッダー -->
     <h1 @click="$router.push('/')">
-    <font-awesome-icon
-            icon="store"
-            class="icon title_icon"
-          />Rese</h1>
+      <font-awesome-icon icon="store" class="icon title_icon" />Rese
+    </h1>
     <div>
       <nav class="nav">
         <ul class="flex">
           <li @click="$router.push('/mypage')">
-          <font-awesome-icon
-            icon="home"       
-            class="icon"
-          />マイページ</li>
+            <font-awesome-icon icon="home" class="icon" />マイページ
+          </li>
           <li
             @click="$router.push('/login')"
             v-if="this.$store.state.auth == false"
           >
-          <font-awesome-icon
-            icon="door-open"
-            class="icon"
-          />
+            <font-awesome-icon icon="door-open" class="icon" />
             ログイン
           </li>
           <li
             @click="$router.push('/register')"
             v-if="this.$store.state.auth == false"
           >
-          <font-awesome-icon
-            icon="user-plus"
-            class="icon"
-          />
+            <font-awesome-icon icon="user-plus" class="icon" />
             新規会員登録
           </li>
           <li @click="logout" v-else>
-            <font-awesome-icon
-            icon="check"
-            class="icon"
-            />ログアウト</li>
+            <font-awesome-icon icon="check" class="icon" />ログアウト
+          </li>
         </ul>
       </nav>
       <!-- ハンバーガーメニュー -->
@@ -50,31 +38,34 @@
 
       <nav :class="{ open: menu }" class="menu_content">
         <ul class="hamburger_memu">
-          <li><a href="/mypage">
-          <font-awesome-icon
-            icon="home"
-            class="hamburger_icon"
-          />マイページ</a></li>
+          <li>
+            <a href="/mypage">
+              <font-awesome-icon
+                icon="home"
+                class="hamburger_icon"
+              />マイページ</a
+            >
+          </li>
           <li v-if="this.$store.state.auth == false">
             <a href="/login">
-            <font-awesome-icon
-            icon="door-open"
-            class="hamburger_icon"
-            />ログイン</a>
+              <font-awesome-icon
+                icon="door-open"
+                class="hamburger_icon"
+              />ログイン</a
+            >
           </li>
           <li v-if="this.$store.state.auth == false">
             <a href="/register">
-            <font-awesome-icon
-            icon="user-plus"
-            class="hamburger_icon"
-            />新規会員登録</a>
+              <font-awesome-icon
+                icon="user-plus"
+                class="hamburger_icon"
+              />新規会員登録</a
+            >
           </li>
           <li @click="logout" v-else>
-            <font-awesome-icon
-            icon="check"
-            class="hamburger_icon"
-            />
-            ログアウト</li>
+            <font-awesome-icon icon="check" class="hamburger_icon" />
+            ログアウト
+          </li>
         </ul>
       </nav>
     </div>
@@ -145,7 +136,7 @@ export default {
     color: #fff;
     margin-right: 2px;
   }
-  .title_icon{
+  .title_icon {
     width: 30px;
     height: auto;
   }
@@ -227,7 +218,7 @@ export default {
     color: #333333;
     display: block;
   }
-  .hamburger_icon{
+  .hamburger_icon {
     margin-right: 3px;
   }
 }

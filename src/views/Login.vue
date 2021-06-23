@@ -8,9 +8,7 @@
           <li>
             <!-- メールアドレス -->
             <label for="email">
-             <font-awesome-icon
-              icon="envelope"
-              class="icon"
+              <font-awesome-icon icon="envelope" class="icon"
             /></label>
             <input
               type="email"
@@ -29,9 +27,7 @@
           <li>
             <!-- パスワード -->
             <label for="password">
-              <font-awesome-icon
-              icon="key"
-              class="icon"
+              <font-awesome-icon icon="key" class="icon"
             /></label>
             <input
               type="password"
@@ -62,8 +58,8 @@ export default {
       email_required: false,
       not_email: false,
       password_required: false,
-      icon_mail:'\u2709 メールアドレス',
-      icon_password:'\u1f512'
+      icon_mail: "\u2709 メールアドレス",
+      icon_password: "\u1f512",
     };
   },
   methods: {
@@ -117,7 +113,7 @@ export default {
     font-size: 16px;
     border: none;
   }
-  label{
+  label {
     position: relative;
   }
   li {
@@ -140,13 +136,13 @@ export default {
     font-weight: bold;
   }
   .icon {
-  width: 28px;
-  height: auto;
-  cursor: pointer;
-  margin-left: 5px;
-  padding-top: 10px;
-  position: absolute;
-  color: gray;
+    width: 28px;
+    height: auto;
+    cursor: pointer;
+    margin-left: 5px;
+    padding-top: 10px;
+    position: absolute;
+    color: gray;
   }
 /* ====================
       レスポンシブ
@@ -155,7 +151,7 @@ export default {
   .login {
     width: 90%;
   }
-  .login_card{
+  .login_card {
     margin: 50px auto;
   }
   label,
