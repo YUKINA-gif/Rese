@@ -38,6 +38,7 @@
           <td>{{ booking.booking_number }}人</td>
         </tr>
       </table>
+
       <!-- 予約内容変更モーダル表示 -->
       <div class="booking_button">
         <button
