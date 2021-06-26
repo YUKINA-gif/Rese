@@ -38,25 +38,26 @@
           <td>{{ booking.booking_number }}人</td>
         </tr>
       </table>
-
       <!-- 予約内容変更モーダル表示 -->
-      <div class="booking_button">
+      <div class="booking_button flex" v-if="status(booking)">
         <button
           class="button"
           id="booking_update_button"
           @click="openModal(booking)"
-        >
-          予約内容の変更</button
+        >変更</button
         ><br />
         <!-- 予約取消モーダル表示 -->
         <button
           class="button"
           id="booking_delete_button"
           @click="openModalDel(booking)"
-        >
-          予約取消
+        >取消
         </button>
       </div>
+      <div v-else>
+          <font-awesome-icon icon="bookmark" class="icon confirm_icon" />
+          <p class="status">予約確定</p>
+        </div>
     </div>
     <!-- 予約更新画面 -->
     <Modal v-if="modal" @close="closeModal" :val="postItem"></Modal>
@@ -96,9 +97,7 @@
             $router.push({
               path: '/detail/' + store.store_id,
               params: { id: store.id },
-            })
-          "
-        >
+            })">
           店舗詳細・予約
         </button>
       </div>
@@ -108,6 +107,7 @@
 
 <script>
 import axios from "axios";
+import momnet from 'moment';
 import Modal from "../components/BookingUpdate";
 import ModalDel from "../components/BookingDelete";
 export default {
@@ -120,6 +120,7 @@ export default {
       modal_del: false,
       haveBooking: true,
       haveFavorite: true,
+      bookingChange: false
     };
   },
   components: {
@@ -206,6 +207,14 @@ export default {
           });
         });
     },
+    status(booking){
+      const today = new Date();
+      if (momnet(booking.booking_date) > today ) {
+        return true;
+      } else {
+        return false
+      }
+    }
   },
   created() {
     this.getMyFavorite();
@@ -242,6 +251,7 @@ export default {
     font-size: 18px;
   }
   .booking {
+    position: relative;
     margin-bottom: 20px;
     border: 1px solid #f8f3e9;
   }
@@ -268,14 +278,45 @@ export default {
   }
   #booking_delete_button,
   #booking_update_button {
+    position: absolute;
     color: #fff;
     font-weight: bold;
-    margin: 10px 0;
-    width: 150px;
+    margin: 10px 5px;
+    width: 60px;
+    height: 35px;
     border-radius: 5px;
+  }
+  #booking_delete_button{
+    top: 0;
+    right: 10px;
+  }
+   #booking_update_button{
+    top: 0;
+    right: 80px;
   }
   .store_image {
     width: 300px;
+  }
+  .status{
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    color: rgb(175, 236, 175);
+  }
+  .icon{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 25px;
+    height: auto;
+  }
+  .menu_icon{
+    cursor: pointer;
+    top: 5px;
+    color: #ffa500;
+  }
+  .confirm_icon{
+    color: rgb(175, 236, 175);
   }
 /* ====================
     お気に入り店舗
