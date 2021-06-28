@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <!-- 店舗詳細 -->
-    <div class="flex">
+    <div class="detail_div">
       <div class="store_detail">
         <h2 class="store_name">{{ store.name }}</h2>
         <div class="detail_image_div">
@@ -27,7 +27,7 @@
           <ul>
             <li class="flex">
               <!-- 来店日 -->
-              <p class="booking_date">来店日:</p>
+              <font-awesome-icon icon="calendar" class="icon confirm_icon" />
               <datetime
                 label="日付を選択してください"
                 format="YYYY-MM-DD"
@@ -46,7 +46,7 @@
           <!-- 来店時間 -->
           <ul>
             <li class="time_color flex">
-              <p class="booking_time">来店時間:</p>
+              <font-awesome-icon icon="clock" class="icon confirm_icon" />
               <vue-timepicker
                 placeholder="時間を選択してください"
                 format="H:mm"
@@ -79,7 +79,7 @@
           <!-- 来店人数 -->
           <ul>
             <li class="flex">
-              <p class="booking_number">人数:</p>
+              <font-awesome-icon icon="users" class="icon confirm_icon" />
               <select type="number" name="i" v-model="number" class="number">
                 <option value="">人数を選択してください</option>
                 <option v-for="i in 30" :key="i">{{ i }}</option>
@@ -216,6 +216,7 @@ export default {
     width: 100%;
     margin: 60px 0 60px 20px;
     text-align: center;
+    line-height: 4;
   }
   ul {
     margin-top: 30px;
@@ -237,7 +238,6 @@ export default {
   .booking_date,
   .booking_time {
     font-size: 20px;
-    margin-top: 12px;
     font-weight: bold;
   }
   .booking_number {
@@ -252,7 +252,7 @@ export default {
   }
   .booking_title {
     font-size: 25px;
-    margin: 30px 0 40px 0;
+    margin: 0 0 40px 0;
   }
   .booking_button {
     margin-top: 50px;
@@ -275,20 +275,41 @@ export default {
     font-size: 18px;
     margin: 10px 0 0 5px;
   }
+  .icon{
+    width: 30px;
+    height: auto;
+    color: gray;
+    margin-right: 20px;
+  }
 /* ====================
       レスポンシブ
 ==================== */
 @media screen and (max-width: 768px) {
   .detail {
-    width: 55%;
+    width: 95%;
     margin: 0 auto;
     text-align: center;
   }
-  .booking {
-    margin: 0;
+  .booking{
+    width: 95%;
   }
-  .flex {
+  .store_detail{
+    width: 100%;
+  }
+  .booking_button {
+    width: 100px;
+    margin-right: 20px;
+  }
+  .back_button{
+    margin: 0 auto;
+    transform: translate(0,-50%);
+  }
+  .detail_div {
     flex-wrap: wrap;
+  }
+  ul{
+    display: block;
+    width: 100%;
   }
   .detail_image_div {
     width: 100%;
@@ -303,12 +324,8 @@ export default {
   .tag {
     display: flex;
   }
-  .overview,
-  .booking_date,
-  .booking_time,
-  .booking_number {
-    width: 100%;
-    margin: 0 auto;
+  .overview{
+    width: 90%;
   }
 }
 </style>

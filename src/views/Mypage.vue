@@ -371,6 +371,11 @@ export default {
   .store_card {
     width: 47%;
   }
+  .status{
+    background-color: #fff;
+    padding: 3px 5px;
+    font-weight: bold;
+  }
   th {
     padding: 20px 5px;
     width: 30%;
