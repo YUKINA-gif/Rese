@@ -265,12 +265,19 @@ export default {
       レスポンシブ
 ==================== */
 @media screen and (max-width: 768px) {
+  #main{
+    width: 100%;
+  }
+  .main_image{
+    height: 480px;
+    width: 100%;
+  }
   .store_card {
-    width: 48%;
+    width: 90%;
     margin: 20px auto;
   }
   .store_button {
-    width: 80%;
+    width: 150px;
   }
   .search_flex {
     flex-wrap: wrap;

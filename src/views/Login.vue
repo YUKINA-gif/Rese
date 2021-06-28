@@ -7,11 +7,13 @@
         <ul>
           <li>
             <!-- メールアドレス -->
-            <label for="email">メールアドレス:</label>
+            <label for="email">
+              <font-awesome-icon icon="envelope" class="icon"
+            /></label>
             <input
               type="email"
               id="email"
-              placeholder="メールアドレスを入力してください"
+              placeholder="メールアドレス"
               v-model="email"
             />
             <!-- メールアドレスエラーメッセージ -->
@@ -24,11 +26,13 @@
           </li>
           <li>
             <!-- パスワード -->
-            <label for="password">パスワード:</label>
+            <label for="password">
+              <font-awesome-icon icon="key" class="icon"
+            /></label>
             <input
               type="password"
               id="password"
-              placeholder="パスワードを入力してください"
+              placeholder="パスワード"
               v-model="password"
             />
             <!-- パスワードエラーメッセージ -->
@@ -54,6 +58,8 @@ export default {
       email_required: false,
       not_email: false,
       password_required: false,
+      icon_mail: "\u2709 メールアドレス",
+      icon_password: "\u1f512",
     };
   },
   methods: {
@@ -88,12 +94,12 @@ export default {
       ログイン
 ==================== */
   .login {
-    width: 60%;
+    width: 50%;
     margin: 0 auto;
     text-align: center;
   }
   .login_card {
-    width: 80%;
+    width: 50%;
     margin: 50px auto;
     padding: 30px;
     border: 1px solid #c2c2c2;
@@ -102,12 +108,13 @@ export default {
     text-align: center;
   }
   input {
-    width: 60%;
-    padding: 8px;
+    width: 90%;
+    padding: 8px 0 8px 50px;
+    font-size: 16px;
+    border: none;
   }
   label {
-    display: inline-block;
-    width: 30%;
+    position: relative;
   }
   li {
     text-align: left;
@@ -119,6 +126,7 @@ export default {
   }
   .button {
     padding: 10px 15px;
+    margin-bottom: 10px;
   }
   .error {
     color: red;
@@ -127,6 +135,15 @@ export default {
   label {
     font-weight: bold;
   }
+  .icon {
+    width: 28px;
+    height: auto;
+    cursor: pointer;
+    margin-left: 5px;
+    padding-top: 10px;
+    position: absolute;
+    color: gray;
+  }
 /* ====================
       レスポンシブ
 ==================== */
@@ -134,9 +151,12 @@ export default {
   .login {
     width: 90%;
   }
+  .login_card {
+    margin: 50px auto;
+  }
   label,
   input {
-    width: 90%;
+    width: 85%;
   }
   .error {
     margin: 0;

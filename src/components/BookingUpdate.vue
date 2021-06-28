@@ -6,25 +6,18 @@
         <p id="title">予約更新</p>
         <table>
           <tr>
-            <th></th>
-            <th>変更前</th>
-            <th class="th_2">変更後</th>
-          </tr>
-          <tr>
             <th>店名</th>
-            <td>{{ val.store.name }}</td>
             <td>{{ val.store.name }}</td>
           </tr>
           <tr>
             <th>予約日</th>
-            <td>{{ val.booking_date }}</td>
             <td>
               <datetime
                 label="日付を選択してください"
                 format="YYYY-MM-DD"
                 formatted="MM月DD日"
                 only-date
-                v-model="booking_date"
+                v-model="val.booking_date"
                 :no-header="true"
                 :min-date="startDate"
                 :max-date="endDate"
@@ -36,7 +29,6 @@
           </tr>
           <tr>
             <th>予約時間</th>
-            <td>{{ val.booking_time.substr(0, 5) }}</td>
             <td class="time-color">
               <vue-timepicker
                 placeholder="時間を選択してください"
@@ -63,19 +55,18 @@
                 manual-input
                 input-width="100%"
                 minute-interval="15"
-                v-model="booking_time"
+                v-model="val.booking_time"
                 class="time"
               ></vue-timepicker>
             </td>
           </tr>
           <tr>
             <th>予約人数</th>
-            <td>{{ val.booking_number }}</td>
             <td>
               <select
                 type="number"
                 name="i"
-                v-model="booking_number"
+                v-model="val.booking_number"
                 class="number"
               >
                 <option value="">人数を選択してください</option>
@@ -112,10 +103,7 @@ export default {
   props: ["val"],
   data() {
     return {
-      loading: true,
-      booking_date: "",
-      booking_time: "",
-      booking_number: "",
+      loading: true
     };
   },
   components: {
@@ -146,9 +134,9 @@ export default {
           id: this.val.id,
           user_id: this.$store.state.user.id,
           store_id: this.val.store_id,
-          booking_date: this.booking_date,
-          booking_time: this.booking_time,
-          booking_number: this.booking_number,
+          booking_date: this.val.booking_date,
+          booking_time: this.val.booking_time,
+          booking_number: this.val.booking_number,
         })
         .then((response) => {
           console.log(response);

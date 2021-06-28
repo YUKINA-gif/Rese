@@ -2,7 +2,7 @@
   <div class="footer flex">
     <!-- フッター -->
     <div class="flex">
-      <h1>Rese</h1>
+      <h1><font-awesome-icon icon="store" class="icon title_icon" />Rese</h1>
     </div>
     <div class="page_back">
       <p @click="scrollTop"><span>▲</span>ページ上部へ戻る</p>
@@ -38,7 +38,7 @@ export default {
     font-size: 25px;
     margin: 15px 0;
   }
-  .management{
+  .management {
     margin: 20px 30px;
     cursor: pointer;
     border-bottom: 1px solid #ccc;
@@ -55,4 +55,12 @@ export default {
   span {
     color: red;
   }
+/* ====================
+      レスポンシブ
+==================== */
+@media screen and (max-width: 768px) {
+  .footer{
+    width: 80%;
+  }
+}
 </style>
