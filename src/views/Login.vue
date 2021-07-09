@@ -3,53 +3,73 @@
     <!-- ログイン -->
     <h2>ログイン</h2>
     <div class="login_card">
-      <form action="">
-        <ul>
-          <li>
-            <!-- メールアドレス -->
-            <label for="email">
-              <font-awesome-icon icon="envelope" class="icon"
-            /></label>
-            <input
-              type="email"
-              id="email"
-              placeholder="メールアドレス"
-              v-model="email"
-            />
-            <!-- メールアドレスエラーメッセージ -->
-            <div class="error" v-if="email_required">
-              メールアドレスが入力されていません
-            </div>
-            <div class="error" v-if="not_email">
-              メールアドレスで入力してください
-            </div>
-          </li>
-          <li>
-            <!-- パスワード -->
-            <label for="password">
-              <font-awesome-icon icon="key" class="icon"
-            /></label>
-            <input
-              type="password"
-              id="password"
-              placeholder="パスワード"
-              v-model="password"
-            />
-            <!-- パスワードエラーメッセージ -->
-            <div class="error" v-if="password_required">
-              パスワードが入力されていません
-            </div>
-          </li>
-        </ul>
-        <button @click="login" type="button" class="button">ログイン</button
-        ><br />
-        <a href="/register">会員でない方はこちら</a>
-      </form>
+      <ValidationObserver ref="observer">
+        <form action="">
+          <ul>
+            <li>
+              <!-- メールアドレス -->
+              <ValidationProvider
+                rules="required"
+                ref="myemail"
+                v-slot="{ errors }"
+              >
+                <label for="email">
+                  <font-awesome-icon icon="envelope" class="icon"
+                /></label>
+                <input
+                  type="email"
+                  v-model="email"
+                  name="メールアドレス"
+                  placeholder="メールアドレス"
+                />
+                <span class="error">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </li>
+            <li>
+              <!-- パスワード -->
+              <ValidationProvider
+                rules="required|min:8"
+                ref="mypass"
+                v-slot="{ errors }"
+              >
+                <label for="password">
+                  <font-awesome-icon icon="key" class="icon"
+                /></label>
+                <input
+                  type="password"
+                  id="password"
+                  name="パスワード"
+                  placeholder="パスワード"
+                  v-model="password"
+                />
+                <!-- パスワードエラーメッセージ -->
+                <span class="error">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </li>
+          </ul>
+          <button @click="login" type="button" class="button">
+            ログイン</button
+          ><br />
+          <a href="/register">会員でない方はこちら</a>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  ValidationObserver,
+  ValidationProvider,
+  extend,
+  localize,
+} from "vee-validate";
+import ja from "vee-validate/dist/locale/ja";
+import * as rules from "vee-validate/dist/rules";
+for (let rule in rules) {
+  extend(rule, rules[rule]);
+}
+localize("ja", ja);
 export default {
   data() {
     return {
@@ -62,28 +82,26 @@ export default {
       icon_password: "\u1f512",
     };
   },
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
   methods: {
     // ログイン
     login() {
       // バリデーション
-      // メールアドレスが空ならメッセージ表示
-      if (this.email == "") {
-        this.email_required = true;
-      }
-      // パスワードが空ならメッセージ表示
-      if (this.password == "") {
-        this.password_required = true;
-      }
-      // メールアドレスでなければメッセージ表示
-      if (!this.email.includes("@")) {
-        this.not_email = true;
-      } else {
-        // 上記以外の場合ログイン処理
-        this.$store.dispatch("login", {
-          email: this.email,
-          password: this.password,
-        });
-      }
+      this.$refs.observer.validate().then((res) => {
+        // バリデーションが有効ならスルー
+        if (res == false) {
+          console.log(res);
+          // そうでなければログイン処理
+        } else {
+          this.$store.dispatch("login", {
+            email: this.email,
+            password: this.password,
+          });
+        }
+      });
     },
   },
 };
@@ -130,7 +148,6 @@ export default {
   }
   .error {
     color: red;
-    margin-left: 30%;
   }
   label {
     font-weight: bold;

@@ -275,7 +275,7 @@ export default {
     font-size: 18px;
     margin: 10px 0 0 5px;
   }
-  .icon{
+  .icon {
     width: 30px;
     height: auto;
     color: gray;
@@ -290,24 +290,24 @@ export default {
     margin: 0 auto;
     text-align: center;
   }
-  .booking{
+  .booking {
     width: 95%;
   }
-  .store_detail{
+  .store_detail {
     width: 100%;
   }
   .booking_button {
     width: 100px;
     margin-right: 20px;
   }
-  .back_button{
+  .back_button {
     margin: 0 auto;
-    transform: translate(0,-50%);
+    transform: translate(0, -50%);
   }
   .detail_div {
     flex-wrap: wrap;
   }
-  ul{
+  ul {
     display: block;
     width: 100%;
   }
@@ -324,7 +324,7 @@ export default {
   .tag {
     display: flex;
   }
-  .overview{
+  .overview {
     width: 90%;
   }
 }
