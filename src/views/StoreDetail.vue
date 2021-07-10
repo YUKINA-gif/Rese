@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <!-- 店舗詳細 -->
-    <div class="detail_div">
+    <div class="detail_div flex">
       <div class="store_detail">
         <h2 class="store_name">{{ store.name }}</h2>
         <div class="detail_image_div">
