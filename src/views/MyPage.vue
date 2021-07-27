@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <th>予約日:</th>
-          <td>{{ booking.booking_date }}</td>
+          <td>{{ booking.booking_date | moment}}</td>
         </tr>
         <tr>
           <th>予約時間:</th>
@@ -127,6 +127,11 @@ export default {
     Modal,
     ModalDel,
   },
+  filters: {
+    moment: function(date) {
+      return moment(date).format("YYYY年MM月DD日");
+    },
+  },
   methods: {
     // お気に入り店舗情報取得
     async getMyFavorite() {
@@ -175,6 +180,8 @@ export default {
     },
     closeModal() {
       this.modal = false;
+      this.getMyFavorite();
+      this.getMyBooking();
       this.$router.go({
         path: this.$router.currentRoute.path,
         force: true,
@@ -187,6 +194,8 @@ export default {
     },
     closeModalDel() {
       this.modal_del = false;
+      this.getMyFavorite();
+      this.getMyBooking();
       this.$router.go({
         path: this.$router.currentRoute.path,
         force: true,
@@ -199,6 +208,8 @@ export default {
           user_id: this.$store.state.user.id,
           store_id: store.store_id,
         })
+        .then(() => {
+          this.getMyFavorite();
         .then((response) => {
           console.log(response);
           this.$router.go({
