@@ -169,9 +169,6 @@ export default {
             this.haveBooking = false;
           }
         })
-        .catch((response) => {
-          console.log(response);
-        });
     },
     // 予約更新モーダルウィンドウ表示
     openModal(booking) {
@@ -180,12 +177,7 @@ export default {
     },
     closeModal() {
       this.modal = false;
-      this.getMyFavorite();
       this.getMyBooking();
-      this.$router.go({
-        path: this.$router.currentRoute.path,
-        force: true,
-      });
     },
     // 予約取消モーダルウィンドウ表示
     openModalDel(booking) {
@@ -194,12 +186,7 @@ export default {
     },
     closeModalDel() {
       this.modal_del = false;
-      this.getMyFavorite();
       this.getMyBooking();
-      this.$router.go({
-        path: this.$router.currentRoute.path,
-        force: true,
-      });
     },
     // お気に入り店舗登録もしくは削除
     favorite(store) {
@@ -210,12 +197,6 @@ export default {
         })
         .then(() => {
           this.getMyFavorite();
-        .then((response) => {
-          console.log(response);
-          this.$router.go({
-            path: this.$router.currentRoute.path,
-            force: true,
-          });
         });
     },
     status(booking){
